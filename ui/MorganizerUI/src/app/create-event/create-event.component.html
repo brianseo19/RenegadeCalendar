@@ -1,0 +1,242 @@
+<div class="createevent-panel">
+  <div class="flex-vertical">
+    <div
+      class="row justify-content-between"
+      style="
+        border-bottom: solid #d1d1d1;
+        border-bottom-width: 2px;
+        margin-bottom: 10px;
+        color: gray;
+      "
+    >
+      <div class="col-md-10" *ngIf="!editFlag">Create Event</div>
+      <div class="col-md-10" *ngIf="editFlag">Edit Event</div>
+      <div class="col-md-2" class="task-panel-close">
+        <mat-icon
+          matTooltip="Close"
+          class="material-icons md-18"
+          (click)="close(false)"
+        >close</mat-icon
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input
+            [(ngModel)]="data.title"
+            matInput
+            required
+            placeholder="Enter Event Title"
+          />
+        </mat-form-field>
+      </div>
+      <!-- <div class="col-md-6">
+        <div style="display: flex;">
+          <ngx-colors
+          style = "margin:0.5em;"
+            ngx-colors-trigger
+            [hideTextInput]="true"
+            [hideColorPicker]="false"
+            [(ngModel)]="color"
+            >Color</ngx-colors
+          >
+          <span style="margin-left:10px;line-height: 50px;">Select Color</span>
+        </div>
+      </div> -->
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Choose Calendar</mat-label>
+      <mat-select
+        [compareWith]="compareCalendarObjects"
+        [(ngModel)]="data.calendar"
+        required
+      >
+        <mat-option *ngFor="let calendar of calendarList" [value]="calendar">{{
+          calendar.name
+          }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="row justify-content-around">
+      <div class="col-md-2" style="line-height: 60px">
+        <mat-checkbox [(ngModel)]="data.allDayEvent" color="primary"
+        >All Day</mat-checkbox
+        >
+      </div>
+      <div class="col-md-8" *ngIf="data.allDayEvent">
+        <mat-form-field dateFormat1>
+          <input
+            [(ngModel)]="data.startTime"
+            matInput
+            [ngxMatDatetimePicker]="picker1"
+            placeholder="Choose a Date"
+            (click)="picker1.open()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker1 [hideTime]="true">
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-5" *ngIf="!data.allDayEvent">
+        <mat-form-field dateFormat2>
+          <input
+            [(ngModel)]="data.startTime"
+            matInput
+            [ngxMatDatetimePicker]="picker"
+            placeholder="Start date and time"
+            (click)="picker.open()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker
+            #picker
+            [enableMeridian]="enableMeridian"
+            [stepMinute]="15"
+            [defaultTime]="defaultTime"
+          >
+            <!-- Custom icon or text of Apply icon -->
+            <ng-template>
+              <!-- <mat-icon>star</mat-icon> -->
+              <span>OK</span>
+            </ng-template>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-5" *ngIf="!data.allDayEvent">
+        <mat-form-field dateFormat2>
+          <input
+            [(ngModel)]="data.endTime"
+            matInput
+            [ngxMatDatetimePicker]="picker2"
+            placeholder="End date and time"
+            (click)="picker2.open()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker
+            #picker2
+            [enableMeridian]="enableMeridian"
+            [stepMinute]="15"
+            [defaultTime]="defaultTime"
+          >
+            <!-- Custom icon or text of Apply icon -->
+            <ng-template>
+              <!-- <mat-icon>star</mat-icon> -->
+              <span>OK</span>
+            </ng-template>
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input
+        matInput
+        [(ngModel)]="data.location"
+        placeholder="Enter the location"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Event Details</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="0"
+        cdkAutosizeMaxRows="5"
+        placeholder="Add details"
+        [(ngModel)]="data.description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Assignee</mat-label>
+      <mat-select
+        multiple
+        [(ngModel)]="data.assigneeList"
+        [compareWith]="compareAssigneeObjects"
+      >
+        <mat-option *ngFor="let person of assigneeList" [value]="person">{{
+          person.name
+          }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Reminder</mat-label>
+      <mat-select multiple [(ngModel)]="data.reminderList">
+        <mat-option
+          *ngFor="let reminder of reminderLst"
+          [value]="reminder.id"
+        >{{ reminder.title }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Notification Type</mat-label>
+          <mat-select>
+            <mat-option value="email">Email</mat-option>
+            <mat-option value="text">Text</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Recurring</mat-label>
+          <mat-select [(ngModel)]="data.recurringModeId">
+            <mat-option [value]="1">None</mat-option>
+            <mat-option [value]="2">Daily</mat-option>
+            <mat-option [value]="3">Weekly</mat-option>
+            <mat-option [value]="5">Monthly</mat-option>
+            <mat-option [value]="6">Yearly</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin: 0.5em"
+      (click)="createEvent()"
+      *ngIf="!editFlag"
+    >
+      Create Event
+    </button>
+    <div *ngIf="editFlag">
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin: 0.5em"
+        (click)="cancelUpdateToEvent()"
+        *ngIf="editFlag"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin: 0.5em"
+        (click)="updateEvent()"
+        *ngIf="editFlag"
+      >
+        Update Event
+      </button>
+    </div>
+  </div>
+</div>

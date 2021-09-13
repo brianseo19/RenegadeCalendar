@@ -1,0 +1,23 @@
+.container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+.login-panel {
+  width: max-content;
+}
+.login-title {
+  color: var(--icon-color);
+  text-align: center;
+  font-weight: bold;
+}
+.carousel-container {
+  width: 60%;
+  text-align: center;
+  margin-top: 1%;
+}

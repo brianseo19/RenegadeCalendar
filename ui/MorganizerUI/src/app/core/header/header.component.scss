@@ -1,0 +1,31 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+.mat-toolbar.mat-primary {
+  background: var(--icon-color);
+  color: #fff;
+}
+.company-title {
+  display: inline;
+  position: absolute;
+  top: 6px;
+}
+.toolbar-header {
+  font-size: large;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}

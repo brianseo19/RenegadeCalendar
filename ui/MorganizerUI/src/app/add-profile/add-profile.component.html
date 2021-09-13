@@ -1,0 +1,117 @@
+<div [@addprofileInOutAnimation] class="addprofile-panel">
+  <div class="flex-vertical">
+    <div
+      class="row justify-content-between"
+      style="
+        border-bottom: solid #d1d1d1;
+        border-bottom-width: 2px;
+        margin-bottom: 10px;
+        color: gray;
+      "
+    >
+      <div class="col-md-10" *ngIf="!editFlag">Add Profile</div>
+      <div class="col-md-10" *ngIf="editFlag">Edit Profile</div>
+      <div class="col-md-2" class="task-panel-close">
+        <mat-icon
+          (click)="close()"
+          matTooltip="Close"
+          class="material-icons md-18"
+          >close</mat-icon
+        >
+      </div>
+    </div>
+    <div style="width: 100%; display: flex">
+      <div style="width: 90%">
+        <mat-form-field appearance="outline" style="width: 95%">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter name"
+            [(ngModel)]="profileModel.name"
+          />
+        </mat-form-field>
+      </div>
+      <div style="width: 10%; text-align: center; position: relative; top: 8px">
+        <div>
+          <ngx-colors
+            ngx-colors-trigger
+            [(ngModel)]="profileModel.color"
+            [palette]="colorPalette"
+            [hideTextInput]="'true'"
+            [hideColorPicker]="'false'"
+            >Color</ngx-colors
+          >
+        </div>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gender</mat-label>
+      <mat-select [(ngModel)]="profileModel.gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+        <mat-option value="other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email ID</mat-label>
+      <input
+        matInput
+        placeholder="Enter your email ID"
+        [(ngModel)]="profileModel.email"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        placeholder="Enter your phone number"
+        [(ngModel)]="profileModel.phoneNumber"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date of Birth</mat-label>
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        [(ngModel)]="profileModel.birthdate"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin: 0.5em"
+        (click)="close()"
+      >
+        Cancel
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin: 0.5em"
+        (click)="addProfile()"
+      >
+        <span *ngIf="!editFlag">Create Profile</span>
+        <span *ngIf="editFlag">Update Profile</span>
+      </button>
+    </div>
+  </div>
+</div>
