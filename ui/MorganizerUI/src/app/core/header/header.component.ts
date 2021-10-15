@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+// allows navigation between views
 import { Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
+// component that pops up when clicking profile button
 import { UserAccountComponent } from 'src/app/user-account/user-account.component';
 
 @Component({
@@ -10,6 +12,7 @@ import { UserAccountComponent } from 'src/app/user-account/user-account.componen
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  // loggedIn is used by the component and ngIf
   loggedInUser: any;
   showTaskPanel: boolean = false;
   constructor(
@@ -18,6 +21,7 @@ export class HeaderComponent implements OnInit {
     private dialog: MatDialog
   ) {}
   ngOnInit() {
+    // subscribes to storeService to change value of loggedInUser and showTaskPanel if it changes anywhere else in the UI
     this.storeService.loggedInUserChange.subscribe((value) => {
       this.loggedInUser = value;
     });
@@ -40,6 +44,7 @@ export class HeaderComponent implements OnInit {
 
   toggleTaskPanel(){
     this.showTaskPanel = !this.showTaskPanel;
+    // lets everything subscribed to the emitter that showTaskPanel has changed values
     this.storeService.showTaskPanelEmitter.next(this.showTaskPanel);
   }
 }

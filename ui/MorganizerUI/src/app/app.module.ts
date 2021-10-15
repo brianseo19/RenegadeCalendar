@@ -77,6 +77,8 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { AgendaComponent } from './core/home-screen/agenda/agenda.component';
 import { ConfirmationDialogComponent } from './core/confirmation-dialog/confirmation-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TaskViewComponent } from './core/home-screen/task-view/task-view.component';
+
 
 @NgModule({
   declarations: [
@@ -107,6 +109,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserAccountComponent,
     AgendaComponent,
     ConfirmationDialogComponent,
+    TaskViewComponent,
+
   ],
   imports: [
     BrowserModule,

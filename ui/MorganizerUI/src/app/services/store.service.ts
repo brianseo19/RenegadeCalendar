@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { SubjectSubscriber } from 'rxjs/internal/Subject';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class StoreService {
   createEventEmitter: Subject<any> = new Subject();
   showEventDetailsEmitter: Subject<any> = new Subject();
   showTaskPanelEmitter: Subject<any> = new Subject();
+  refreshWeekTaskViewEmitter: Subject<any> = new Subject();
 
   data = {};
   constructor() {
@@ -40,5 +41,14 @@ export class StoreService {
   }
   removeUserInfo() {
     this.loggedInUserChange.unsubscribe();
+  }
+
+  // for communication between todo list and weekly task view
+  sendUpdatedTasks(tasks) {
+    this.refreshWeekTaskViewEmitter.next(tasks);
+  }
+  getUpdatedTasks(): Observable<any>
+  {
+    return this.refreshWeekTaskViewEmitter.asObservable();
   }
 }

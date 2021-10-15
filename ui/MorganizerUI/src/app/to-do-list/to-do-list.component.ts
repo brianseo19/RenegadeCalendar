@@ -202,10 +202,15 @@ export class ToDoListComponent implements OnInit {
     this.taskService.addTasksInTodoList(task).subscribe(
       (response) => {
         task.id = response.id;
+
+        // uncomment to communicate auto update todo list and weekly task view
+        // console.log(this.todoLists)
+        // this.storeService.sendUpdatedTasks(this.todoLists)
       },
       (error) => {
         console.log(error);
       }
     );
+    console.log(this.todoLists)
   }
 }

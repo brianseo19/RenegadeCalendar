@@ -81,6 +81,9 @@ export class HomeScreenComponent implements OnInit {
   selectedProfiles = [];
   selectedCalendars = [];
 
+  // new addition
+  showTaskView = false;
+
   CalendarView = CalendarView;
   viewPeriod: ViewPeriod;
   // viewDate: Date = new Date();
@@ -161,8 +164,17 @@ export class HomeScreenComponent implements OnInit {
       if (calendarView.showAgenda) {
         this.view = CalendarView.Month;
         this.showAgenda = true;
-      } else {
+        this.showTaskView = false;
+      }
+      else if (calendarView.showTaskView)
+      {
+        this.view = CalendarView.Week;
+        this.showTaskView = true;
         this.showAgenda = false;
+      }
+       else {
+        this.showAgenda = false;
+        this.showTaskView = false;
         this.view = calendarView.view;
       }
     });

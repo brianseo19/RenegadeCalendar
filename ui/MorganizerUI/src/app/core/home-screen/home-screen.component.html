@@ -15,7 +15,7 @@
         ? 'col-xl-8 col-lg-8 col-md-8 col-sm-8'
         : 'col-xl-10 col-lg-10 col-md-10 col-sm-10'
     "
-    *ngIf="!showAgenda"
+    *ngIf="!showAgenda && !showTaskView"
   >
     <!-- <ng-template #loading> -->
     <div
@@ -96,7 +96,7 @@
                       >
                         <span matTooltip="No Assignee ">
                           <mat-icon class="material-icons md-12"
-                          >block</mat-icon
+                            >block</mat-icon
                           >
                         </span>
                       </div>
@@ -111,13 +111,13 @@
                           <small
                             *ngIf="!event.meta.eventModel.allDayEvent"
                             style="font-weight: 800; padding-left: 6px"
-                          >{{ event.start | date: "hh:mm aa" }} -
+                            >{{ event.start | date: "hh:mm aa" }} -
                           </small>
                         </span>
                         <small
                           class="title"
                           style="margin-left: 3px; font-weight: 500"
-                        >{{ event.title }}</small
+                          >{{ event.title }}</small
                         >
                       </span>
                     </span>
@@ -221,13 +221,13 @@
                         <small
                           *ngIf="!event.meta.eventModel.allDayEvent"
                           style="font-weight: 800; padding-left: 6px"
-                        >{{ event.start | date: "hh:mm aa" }} -
+                          >{{ event.start | date: "hh:mm aa" }} -
                         </small>
                       </span>
                       <small
                         class="title"
                         style="margin-left: 3px; font-weight: 500"
-                      >{{ event.title }}</small
+                        >{{ event.title }}</small
                       >
                     </span>
                   </div>
@@ -237,7 +237,7 @@
           </div>
           <div class="cell-show-more-text">
             <span *ngIf="day.events.length > 2" (click)="showMoreEvents(day)"
-            ><strong>
+              ><strong>
                 {{ day.events.length - 2 }}
                 {{
                   (showMoreDate | date) === (day.date | date) && showMore
@@ -305,11 +305,23 @@
   >
     <app-agenda [events]="events"> </app-agenda>
   </div>
-  <div 
-    *ngIf = "showTaskPanel"
-    class ="d-none d-sm-block col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 mat-elevation-z5"
-    style="margin-top: 1px; padding-right: 1px; "
+  <div
+    [ngClass]="
+      showTaskPanel
+        ? 'col-xl-8 col-lg-8 col-md-8 col-sm-8'
+        : 'col-xl-10 col-lg-10 col-md-10 col-sm-10'
+    "
+    *ngIf="showTaskView"
   >
-    <app-to-do-list (closeTaskPanel)="closeTaskPanel()"></app-to-do-list>
+    <app-task-view></app-task-view>
+  </div>
+  <div
+    *ngIf="showTaskPanel"
+    class="d-none d-sm-block col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 mat-elevation-z5"
+    style="margin-top: 1px; padding-right: 1px;"
+  >
+    <app-to-do-list
+      (closeTaskPanel)="closeTaskPanel()"
+    ></app-to-do-list>
   </div>
 </div>

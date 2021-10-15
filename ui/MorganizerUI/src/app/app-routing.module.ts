@@ -7,6 +7,8 @@ import { RegisterComponent } from './core/register/register.component';
 import { ResetPasswordComponent } from './core/reset-password/reset-password.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
+import {TaskViewComponent} from './core/home-screen/task-view/task-view.component'
+
 const routes: Routes = [
   { path: 'landing', component: LandingComponent, pathMatch: 'full' },
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -18,6 +20,7 @@ const routes: Routes = [
   },
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: '**', component: LoginComponent },
+  { path: 'task', component: TaskViewComponent}
 ];
 
 @NgModule({

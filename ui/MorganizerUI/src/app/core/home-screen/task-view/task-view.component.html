@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="week-container" cdkDropListGroup>
+    <div
+      class="day-container"
+      *ngFor="let day of weekDateFormat; index as i"
+      [weekDateFormat]="weekDateFormat"
+    >
+      <div class="day-label">{{ day }}</div>
+      <div
+        class="card-container"
+        cdkDropList
+        (cdkDropListDropped)="drop($event, i)"
+        [cdkDropListData]="weekTasks[i]"
+      >
+        <mat-card *ngFor="let task of weekTasks[i]" cdkDrag [cdkDragData]="task" >
+          <div class="row">
+            <mat-checkbox color="primary"></mat-checkbox>
+            <div class="col-8">
+              <div class="row">
+                <mat-label style="overflow-wrap: break-word">{{
+                  task.title
+                }}</mat-label>
+              </div>
+              <div class="row">
+                <mat-label style="overflow-wrap: break-word">{{
+                  task.dueDate
+                }}</mat-label>
+              </div>
+              <div class="row">
+                <mat-label style="overflow-wrap: break-word"></mat-label>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

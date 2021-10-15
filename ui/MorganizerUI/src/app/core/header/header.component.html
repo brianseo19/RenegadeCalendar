@@ -1,11 +1,15 @@
+<!-- mat-toolbar is angular component for toolbar -->
 <mat-toolbar color="primary" class="toolbar-header">
   <div class="row" style="width: 100%">
+    <!-- column containing menu button and name -->
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 align-self-center">
       <button mat-icon-button aria-label="menu icon">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="company-title">Morganized</span>
+      <span class="company-title">Renegade Mom Calendar</span>
     </div>
+    <!-- calendar control component -->
+    <!-- ngIf renders this component when the condition is true -->
     <div
       *ngIf="loggedInUser"
       class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 align-self-center"
@@ -25,14 +29,25 @@
         >
           <mat-icon>account_circle</mat-icon>
         </button>
+        <!-- matMenu is linked to menu button with #menu -->
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="openAccountDialog()">Profile</button>
           <button mat-menu-item (click)="logOut()">Sign Out</button>
         </mat-menu>
-          <mat-icon
-          matTooltip="Create Tasks" 
-          class="material-icons md-24 task-icon align-self-center" style="cursor: pointer; text-align:end;padding-left: 22px; vertical-align:middle;margin-left: 20px; border-left: solid 2px;"
-          (click)=toggleTaskPanel()>sticky_note_2</mat-icon>
+        <mat-icon
+          matTooltip="Create Tasks"
+          class="material-icons md-24 task-icon align-self-center"
+          style="
+            cursor: pointer;
+            text-align: end;
+            padding-left: 22px;
+            vertical-align: middle;
+            margin-left: 20px;
+            border-left: solid 2px;
+          "
+          (click)="toggleTaskPanel()"
+          >sticky_note_2</mat-icon
+        >
       </div>
     </div>
   </div>

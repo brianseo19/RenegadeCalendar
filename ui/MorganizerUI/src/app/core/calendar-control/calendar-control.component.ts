@@ -15,6 +15,9 @@ export class CalendarControlComponent implements OnInit {
   today: Date = new Date();
   showAgenda = false;
 
+  // Adding task view list 
+  showTaskView = false;
+
   constructor(private storeService: StoreService) {
     this.storeService.calendarDayClicked.subscribe((date) => {
       this.viewDate = date;
@@ -31,9 +34,18 @@ export class CalendarControlComponent implements OnInit {
     if (view === 'agenda') {
       this.view = CalendarView.Month;
       this.showAgenda = true;
-    } else {
+      this.showTaskView = false;
+    } 
+    else if (view === 'taskView'){
+      this.view = CalendarView.Week;
+      this.showAgenda = false;
+      this.showTaskView = true;
+      // this.storeService.setProperty("viewDate", this.viewDate);
+    }
+      else {
       this.view = view;
       this.showAgenda = false;
+      this.showTaskView = false;
     }
     this.updateCalendarView();
   }
@@ -41,10 +53,12 @@ export class CalendarControlComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
   updateCalendarView() {
+    // console.log(this.view, this.showAgenda, this.showTaskView);
     this.storeService.calendarViewChange.next({
       viewDate: this.viewDate,
       view: this.view,
       showAgenda: this.showAgenda,
+      showTaskView: this.showTaskView
     });
   }
 }

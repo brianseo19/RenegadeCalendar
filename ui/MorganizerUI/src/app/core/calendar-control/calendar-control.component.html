@@ -1,9 +1,9 @@
 <div class="row text-center" style="margin: 10px">
+  <!-- holds the calendar today button -->
   <div
     class="d-none d-sm-block col-xs-2 col-sm-2 col-md-2 col-lg-2"
     style="text-align: start"
   >
-    <span> </span>
     <button
       mat-button
       color="basic"
@@ -11,7 +11,12 @@
       [(viewDate)]="viewDate"
       (click)="updateCalendarView()"
       matTooltip="{{ today | date }}"
-      style="line-height: 32px; border: solid 1px; border-radius: 16px"
+      style="
+        line-height: 32px;
+        border: solid 1px;
+        border-radius: 16px;
+        margin-left: 20px;
+      "
     >
       <mat-icon style="font-size: 20px">calendar_today</mat-icon>
       Today
@@ -85,7 +90,7 @@
     style="border: solid 1px; border-radius: 1em"
   >
     <mat-select
-      [value]="view"
+      [value]='view'
       disableOptionCentering
       panelClass="month-dropdown-style"
     >
@@ -104,8 +109,11 @@
         value="{{ CalendarView.Day }}"
         >Day</mat-option
       >
-      <mat-option (click)="setView('agenda')" value="'agenda'"
+      <mat-option (click)="setView('agenda')" value="'Agenda'"
         >Agenda</mat-option
+      >
+      <mat-option (click)="setView('taskView')" value="'Task View'"
+        >Task View</mat-option
       >
     </mat-select>
   </div>
