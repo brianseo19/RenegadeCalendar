@@ -147,6 +147,8 @@ export class HomeScreenComponent implements OnInit {
   showMoreDate: Date;
   defaultProfileId: number;
   defaultCalendarId: number;
+  dayStartHour: number = 6;
+  dayEndHour: number = 17
 
   constructor(
     private modal: NgbModal,
