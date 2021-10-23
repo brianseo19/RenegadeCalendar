@@ -97,6 +97,7 @@
   border-left: 3px var(--color) solid;
   width: 100%;
   height: 100%;
+  overflow: auto;
 }
 
 .week-event::before {
@@ -111,6 +112,7 @@
 .week-event-title {
   margin-left: 5px;
 }
+
 // .cal-event::before {
 //   background-color: var(--color);
 //   opacity: 0.5;

@@ -11,6 +11,7 @@ import {
   getDate,
   isSameDay,
   isSameMonth,
+  addHours
 } from 'date-fns';
 import {
   CalendarEvent,
@@ -268,7 +269,7 @@ export class HomeScreenComponent implements OnInit {
       eventModel.endTime = newEnd ? newEnd : event.end;
     } else {
       eventModel = event;
-      eventModel.endTime = event['dueDate'] ? event['dueDate'] : moment(newStart).endOf('day').toDate();
+      eventModel.endTime = event['dueDate'] ? event['dueDate'] : addHours(newStart, 1);
       this.eventService.triggerEventDropped(event);
     }
     eventModel.startTime = newStart ? newStart : event.start;

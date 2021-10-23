@@ -1,4 +1,4 @@
-import { endOfToday, startOfToday } from 'date-fns';
+import { endOfToday, startOfToday, addHours } from 'date-fns';
 import { EventModel } from './event-model';
 
 export class TaskModel extends EventModel {
