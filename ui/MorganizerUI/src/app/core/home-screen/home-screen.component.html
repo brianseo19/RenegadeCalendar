@@ -96,7 +96,7 @@
                       >
                         <span matTooltip="No Assignee ">
                           <mat-icon class="material-icons md-12"
-                          >block</mat-icon
+                            >block</mat-icon
                           >
                         </span>
                       </div>
@@ -111,13 +111,13 @@
                           <small
                             *ngIf="!event.meta.eventModel.allDayEvent"
                             style="font-weight: 800; padding-left: 6px"
-                          >{{ event.start | date: "hh:mm aa" }} -
+                            >{{ event.start | date: "hh:mm aa" }} -
                           </small>
                         </span>
                         <small
                           class="title"
                           style="margin-left: 3px; font-weight: 500"
-                        >{{ event.title }}</small
+                          >{{ event.title }}</small
                         >
                       </span>
                     </span>
@@ -221,13 +221,13 @@
                         <small
                           *ngIf="!event.meta.eventModel.allDayEvent"
                           style="font-weight: 800; padding-left: 6px"
-                        >{{ event.start | date: "hh:mm aa" }} -
+                          >{{ event.start | date: "h:mm aa" }} -
                         </small>
                       </span>
                       <small
                         class="title"
                         style="margin-left: 3px; font-weight: 500"
-                      >{{ event.title }}</small
+                        >{{ event.title }}</small
                       >
                     </span>
                   </div>
@@ -237,7 +237,7 @@
           </div>
           <div class="cell-show-more-text">
             <span *ngIf="day.events.length > 2" (click)="showMoreEvents(day)"
-            ><strong>
+              ><strong>
                 {{ day.events.length - 2 }}
                 {{
                   (showMoreDate | date) === (day.date | date) && showMore
@@ -246,6 +246,42 @@
                 }}
               </strong>
             </span>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- custom event template for the week view -->
+      <ng-template
+        #weekEventTemplate
+        let-weekEvent="weekEvent"
+        let-eventClicked="eventClicked"
+        let-column="column"
+        let-daysInWeek="daysInWeek"
+      >
+        <div
+          class="week-event"
+          style="--color: {{ weekEvent.event.color.primary }}"
+          (mwlClick)="eventClicked.emit({ sourceEvent: $event })"
+        >
+          <!-- title template -->
+          <!-- <ng-template #eventTitleTemplate let-event="weekEvent.event">
+            <div class="week-text">
+              <div class="week-event-start">
+                {{ weekEvent.event.start | date: "h:mm aa" }}
+              </div>
+              <div class="week-event-title">
+                {{ weekEvent.event.title }}
+              </div>
+            </div>
+            
+          </ng-template> -->
+          <div class="week-event-title">
+            <mwl-calendar-event-title
+              [event]="weekEvent.tempEvent || weekEvent.event"
+              [customTemplate]="eventTitleTemplate"
+              [view]="daysInWeek === 1 ? 'day' : 'week'"
+            >
+            </mwl-calendar-event-title>
           </div>
         </div>
       </ng-template>
@@ -266,9 +302,12 @@
         <mwl-calendar-week-view
           *ngSwitchCase="CalendarView.Week"
           precision="minutes"
+          [eventTemplate]="weekEventTemplate"
           [viewDate]="viewDate"
           [events]="recurringEventsToDisplay"
           [refresh]="refresh"
+          [dayStartHour]="dayStartHour"
+          [dayEndHour]="dayEndHour"
           (eventClicked)="handleEvent('Clicked', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)"
           (beforeViewRender)="updateCalendarEvents($event)"
@@ -305,10 +344,10 @@
   >
     <app-agenda [events]="events"> </app-agenda>
   </div>
-  <div 
-    *ngIf = "showTaskPanel"
-    class ="d-none d-sm-block col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 mat-elevation-z5"
-    style="margin-top: 1px; padding-right: 1px; "
+  <div
+    *ngIf="showTaskPanel"
+    class="d-none d-sm-block col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 mat-elevation-z5"
+    style="margin-top: 1px; padding-right: 1px"
   >
     <app-to-do-list (closeTaskPanel)="closeTaskPanel()"></app-to-do-list>
   </div>

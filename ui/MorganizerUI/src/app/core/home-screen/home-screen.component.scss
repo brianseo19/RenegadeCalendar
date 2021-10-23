@@ -84,10 +84,46 @@
   height: 13px !important;
   width: 13px !important;
   margin-left: 2px;
-  }
+}
 
-  .material-icons.md-12 {
-    font-size: 12px !important;
-    height: 12px !important;
-    width: 12px !important;
-    }
+.material-icons.md-12 {
+  font-size: 12px !important;
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.week-event {
+  color: var(--color);
+  border-left: 3px var(--color) solid;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.week-event::before {
+  background-color: var(--color);
+  opacity: 0.3;
+  content: "";
+  position: absolute;
+  width: 98%;
+  height: 100%;
+}
+
+.week-event-title {
+  margin-left: 5px;
+}
+
+// .cal-event::before {
+//   background-color: var(--color);
+//   opacity: 0.5;
+//   content: "";
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   border-left: 3px black solid;
+// }
+
+// .cal-event {
+//   color: var(--color);
+  
+// }
