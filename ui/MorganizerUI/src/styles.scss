@@ -7,13 +7,14 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: small;
-  --icon-color: #424dc8;
+  --icon-color: #c43231;
 }
 .btn-animation:hover:not([disabled]) {
-  background-color: rgba(24, 217, 231, 0.96);
-  color: rgba(48, 48, 250, 0.96);
-  transition: 0.5s ease-in-out;
+  background-color: rgba(#9c1a25, 0.96);
+  color: rgba(white, 0.95);
+  transition: 0.3s ease-in-out;
 }
+
 .material-icons.md-18 {
   font-size: 18px;
 }
@@ -35,7 +36,7 @@ body {
   background-color: #326277fa;
 }
 .cal-header {
-  background-color: #c0e9fa;
+  // background-color: #dcdcdc;
 }
 .cal-month-view .cal-events {
   margin: 0px;
@@ -45,6 +46,12 @@ body {
 }
 .cal-month-view .cal-day-number {
   opacity: 1;
+}
+.cal-month-view .cal-day-cell.cal-today {
+  background-color: #fcebed;
+}
+.cal-week-view .cal-header.cal-today {
+  background-color: #fcebed;
 }
 
 .events-show-more-dialog-style {
