@@ -8,7 +8,7 @@
     <span style="font-size: 23px">+ </span><span>Create</span>
   </button>
 </div>
-<div>
+<div class="profile-calendar-column">
   <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel
       style="box-shadow: none"
@@ -28,17 +28,16 @@
       </mat-expansion-panel-header>
       <table style="width: 100%">
         <tr *ngFor="let profile of profiles">
-          <td style="width: 15%; vertical-align: top">
+          <td style="width: 15%; vertical-align: top; padding-top: 0px;">
             <ui-switch
               size="small"
               defaultBgColor="#F5F5F5"
               [(ngModel)]="profile.selected"
               (click)="updateProfile(profile)"
-              switchColor="{{ profile.color }}"
               style="--color:{{ profile.color }}"
             ></ui-switch>
           </td>
-          <td style="vertical-align: middle; width: 65%">
+          <td style="vertical-align: bottom; width: 65%; padding-left: 10px;">
             {{ profile.name }}
           </td>
           <td style="width: 20%">
@@ -108,7 +107,7 @@
               defaultBgColor="#F5F5F5"
               [(ngModel)]="calendar.selected"
               (click)="updateCalendar(calendar)"
-              switchColor="{{ calendar.color }}"
+              style="--color:{{ calendar.color }}"
             >
             </ui-switch>
           </td>
@@ -146,7 +145,7 @@
                 <ngx-colors
                   ngx-colors-trigger
                   [hideTextInput]="true"
-                  [hideColorPicker]="false"
+                  [hideColorPicker]="true"
                   [(ngModel)]="calendar.color"
                   (input)="updateCalendar(calendar, 'true')"
                 >

@@ -1,9 +1,41 @@
 @import "~@angular/material/theming";
 @include mat-core();
 
-$primary: mat-palette($mat-blue, 200);
-$accent: mat-palette($mat-orange, 200);
+$renegade-palette: (
+  50: #fcebed,
+  100: #f9ccd1,
+  200: #e69999,
+  300: #d97272,
+  400: #e15351,
+  500: #e54439,
+  600: #d63b37,
+  700: #c43231,
+  800: #b72c2b,
+  900: #a8211f,
+  contrast: (
+    50: rgba(white,0.95),
+    100: rgba(white,0.95),
+    200: rgba(white,0.95),
+    300: rgba(white,0.95),
+    400: rgba(white,0.95),
+    500: rgba(white,0.95),
+    600: rgba(white,0.95),
+    700: rgba(white,0.95),
+    800: rgba(white,0.95),
+    900: rgba(white,0.95) // ... continues to 900,
+  ),
+);
 
-$theme: mat-light-theme($primary, $accent);
+$primary: mat-palette($renegade-palette, 400);
+$accent: mat-palette($renegade-palette, 400);
+
+$theme: mat-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+    ),
+  )
+);
 
 @include angular-material-theme($theme);
