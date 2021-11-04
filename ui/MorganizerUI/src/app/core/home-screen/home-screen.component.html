@@ -299,20 +299,23 @@
           (beforeViewRender)="updateCalendarEvents($event)"
         >
         </mwl-calendar-month-view>
-        <mwl-calendar-week-view
-          *ngSwitchCase="CalendarView.Week"
-          precision="minutes"
-          [eventTemplate]="weekEventTemplate"
-          [viewDate]="viewDate"
-          [events]="recurringEventsToDisplay"
-          [refresh]="refresh"
-          [dayStartHour]="dayStartHour"
-          [dayEndHour]="dayEndHour"
-          (eventClicked)="handleEvent('Clicked', $event.event)"
-          (eventTimesChanged)="eventTimesChanged($event)"
-          (beforeViewRender)="updateCalendarEvents($event)"
-        >
-        </mwl-calendar-week-view>
+        <ng-container
+        *ngFor="let profile of selectedProfiles">
+          <mwl-calendar-week-view
+            *ngSwitchCase="CalendarView.Week"
+            precision="minutes"
+            [eventTemplate]="weekEventTemplate"
+            [viewDate]="viewDate"
+            [events]="recurringEventsToDisplay"
+            [refresh]="refresh"
+            [dayStartHour]="dayStartHour"
+            [dayEndHour]="dayEndHour"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+            (beforeViewRender)="updateCalendarEvents($event)"
+          >
+          </mwl-calendar-week-view>
+        </ng-container>
         <mwl-calendar-day-view
           *ngSwitchCase="CalendarView.Day"
           [viewDate]="viewDate"
