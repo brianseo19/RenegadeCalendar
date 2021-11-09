@@ -4,6 +4,7 @@ import {
   OnInit,
   TemplateRef,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -69,7 +70,9 @@ interface RecurringEvent {
     },
     ConfirmationDialogService,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
+
 export class HomeScreenComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   showTaskPanel: boolean = false;
@@ -592,4 +595,26 @@ export class HomeScreenComponent implements OnInit {
       this.cdr.detectChanges();
     }
   }
+
+  onLongPress($event, event) {
+    console.log($event)
+    if ($event === true) {
+      this.dialog.open(EventDetailsDialogComponent, {
+        data: event,
+        width: '500px',
+        panelClass: [
+          'animate__animated',
+          'animate__fadeIn',
+          'event-overview-dialog-style',
+        ],
+      });
+    }
+    else {
+      this.dialog.closeAll();
+    }
+    
+    
+  }
+
+
 }

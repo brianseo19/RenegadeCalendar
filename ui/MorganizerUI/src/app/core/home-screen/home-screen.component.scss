@@ -38,7 +38,7 @@
   text-overflow: ellipsis;
   position: relative;
   top: 8px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .cal-cell-content {
@@ -64,7 +64,7 @@
   text-overflow: ellipsis;
   position: relative;
   top: 8px;
-  z-index: 1000;
+  z-index: 999;
 }
 .cell-long-event::before {
   background-color: var(--color);
@@ -111,6 +111,10 @@
 
 .week-event-title {
   margin-left: 5px;
+}
+
+.monthTooltip {
+  font-size: large;
 }
 
 // .cal-event::before {
