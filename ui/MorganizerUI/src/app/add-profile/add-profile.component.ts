@@ -47,6 +47,15 @@ export class AddProfileComponent implements OnInit {
     '#607d8b',
   ];
 
+  reminderLst = [
+    { title: '5 minutes', value: '5', id: 1 },
+    { title: '10 minutes', value: '10', id: 2 },
+    { title: '15 minutes', value: '15', id: 3 },
+    { title: '30 minutes', value: '30', id: 4 },
+    { title: '1 hour', value: '60', id: 5 },
+    { title: '2 hours', value: '120', id: 6 },
+  ];
+
   constructor(
     private dialogRef: MatDialogRef<AddProfileComponent>,
     private profileService: ProfileService,

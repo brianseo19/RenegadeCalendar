@@ -10,6 +10,8 @@ public class ProfileResponse {
 	private long userId;
 	private String color;
 	private boolean selected;
+	private String[] notification_preference;
+
 	
 	
 	
@@ -21,7 +23,7 @@ public class ProfileResponse {
 	
 	
 	public ProfileResponse(String name, String gender, String phoneNumber, String birthdate, String email,
-			Long profileId, long userId, String color, boolean selected) {
+			Long profileId, long userId, String color, boolean selected, String[] notificationPreferenceInput) {
 		super();
 		this.name = name;
 		this.gender = gender;
@@ -32,6 +34,17 @@ public class ProfileResponse {
 		this.userId = userId;
 		this.color = color;
 		this.selected = selected;
+		this.notification_preference = notificationPreferenceInput;
+	}
+	
+	public String[] getNotificationPreference()
+	{
+		return notification_preference;
+	}
+
+	public void setNotificationPreference(String[] newNotificationPreference)
+	{
+		this.notification_preference = newNotificationPreference;
 	}
 
 

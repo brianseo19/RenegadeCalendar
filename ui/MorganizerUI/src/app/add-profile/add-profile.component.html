@@ -93,6 +93,17 @@
       </mat-datepicker>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Default Notification Preference(s)</mat-label>
+      <mat-select multiple [(ngModel)]="profileModel.notification_preference_list">
+        <mat-option
+          *ngFor="let reminder of reminderLst"
+          [value]="reminder.id"
+        >{{ reminder.title }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
     <div>
       <button
         mat-raised-button

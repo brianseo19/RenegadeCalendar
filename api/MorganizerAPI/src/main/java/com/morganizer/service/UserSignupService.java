@@ -73,7 +73,7 @@ public class UserSignupService {
 	
 	private Long addDefaultProfile(UserDetailsEntity user) {
 		ProfileRequest profileRequest = new ProfileRequest(user.getId(), user.getFirstName(), user.getEmail(), user.getGender(), 
-				user.getPhoneNumber(), user.getBirthdate(), "#2055F8", true );
+				user.getPhoneNumber(), user.getBirthdate(), "#2055F8", true, user.getNotificationPreference());
 		return profileService.addProfile(profileRequest).getProfileId();
 	}
 

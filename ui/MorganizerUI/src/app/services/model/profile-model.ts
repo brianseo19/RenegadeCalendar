@@ -8,5 +8,6 @@ export class ProfileModel {
     birthdate: string;
     color: string;
     selected: boolean;
+    notification_preference_list: string[];
   }
   

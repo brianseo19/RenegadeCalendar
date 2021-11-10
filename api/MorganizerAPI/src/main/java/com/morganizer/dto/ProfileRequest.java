@@ -11,6 +11,8 @@ public class ProfileRequest {
     private String birthdate;
     private String color;
     private boolean selected;
+	private String[] notification_preference;
+
     
     
     public ProfileRequest() {
@@ -22,7 +24,7 @@ public class ProfileRequest {
     }
     
     public ProfileRequest(long userId, String name, String email, String gender, String phoneNumber, String birthdate,
-			String color, boolean selected) {
+			String color, boolean selected, String[] notificationPreferenceInput) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -32,7 +34,19 @@ public class ProfileRequest {
 		this.birthdate = birthdate;
 		this.color = color;
 		this.selected = selected;
+		this.notification_preference = notificationPreferenceInput;
 	}
+
+	public String[] getNotificationPreference()
+	{
+		return notification_preference;
+	}
+
+	public void setNotificationPreference(String[] newNotificationPreference)
+	{
+		this.notification_preference = newNotificationPreference;
+	}
+
 	public String getColor() {
 		return color;
 	}

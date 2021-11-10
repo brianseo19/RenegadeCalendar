@@ -20,6 +20,8 @@ public class UserDetailsEntity {
 	private String userName;
 	private String email;
 	private String birthdate;
+
+	private String[] notification_preference;
 	
 	@Column(name = "mobile")
 	private String phoneNumber;
@@ -31,6 +33,16 @@ public class UserDetailsEntity {
 	private Long defaultCalendarId;
 	
 	private Long defaultProfileId;
+
+	public String[] getNotificationPreference()
+	{
+		return notification_preference;
+	}
+
+	public void setNotificationPreference(String[] newNotificationPreference)
+	{
+		this.notification_preference = newNotificationPreference;
+	}
 
 	public long getRoleid() {
 		return roleId;

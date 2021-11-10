@@ -44,7 +44,7 @@ public class ProfileService {
 		
 		List<ProfileResponse> result = new ArrayList<>();
 		for(ProfileEntity profile: profileList) {
-			result.add(new ProfileResponse(profile.getName(),profile.getGender(),profile.getPhoneNumber(), profile.getBirthdate(), profile.getEmail(), profile.getProfileId(), profile.getUser().getId(), profile.getColor(),profile.isSelected()));
+			result.add(new ProfileResponse(profile.getName(),profile.getGender(),profile.getPhoneNumber(), profile.getBirthdate(), profile.getEmail(), profile.getProfileId(), profile.getUser().getId(), profile.getColor(), profile.isSelected(), profile.getNotificationPreference()));
 		}
 		return result;
 	}
@@ -52,14 +52,14 @@ public class ProfileService {
 	public ProfileResponse addProfile(ProfileRequest profileRequest) {
 		UserDetailsEntity user = userRepo.getOne(profileRequest.getUserId());
 		ProfileEntity profile = new ProfileEntity(profileRequest.getName(), profileRequest.getEmail(), profileRequest.getPhoneNumber(),
-				profileRequest.getGender(), profileRequest.getBirthdate(), profileRequest.getColor(), user, profileRequest.isSelected());
+				profileRequest.getGender(), profileRequest.getBirthdate(), profileRequest.getColor(), user, profileRequest.isSelected(). profileRequest.getNotificationPreference());
 		
 		if(profileRequest.getProfileId()!=null) {
 			profile.setProfileId(profileRequest.getProfileId());
 		}
 		
 		ProfileEntity profileEntity = profileRepository.save(profile);
-		return new ProfileResponse(profileEntity.getName(),profileEntity.getGender(),profileEntity.getPhoneNumber(), profileEntity.getBirthdate(), profileEntity.getEmail(), profileEntity.getProfileId(), profileEntity.getUser().getId(), profileEntity.getColor(),profileEntity.isSelected());
+		return new ProfileResponse(profileEntity.getName(),profileEntity.getGender(),profileEntity.getPhoneNumber(), profileEntity.getBirthdate(), profileEntity.getEmail(), profileEntity.getProfileId(), profileEntity.getUser().getId(), profileEntity.getColor(),profileEntity.isSelected(), profileEntity.getNotificationPreference());
 
 	}
 }

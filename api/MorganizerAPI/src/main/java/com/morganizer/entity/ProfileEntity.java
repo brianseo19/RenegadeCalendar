@@ -21,6 +21,7 @@ public class ProfileEntity {
     private String gender;
     private String birthdate;
     private String color;
+	private String[] notification_preference;
     
     
     
@@ -36,7 +37,7 @@ public class ProfileEntity {
     
     
 	public ProfileEntity(String name, String email, String phoneNumber, String gender, String birthdate, String color,
-			UserDetailsEntity user, boolean selected) {
+			UserDetailsEntity user, boolean selected, String[] notification_preference_input) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -46,6 +47,17 @@ public class ProfileEntity {
 		this.color = color;
 		this.user = user;
 		this.selected = selected;
+		this.notification_preference = notification_preference_input;
+	}
+
+	public String[] getNotificationPreference()
+	{
+		return notification_preference;
+	}
+
+	public void setNotificationPreference(String[] newNotificationPreference)
+	{
+		this.notification_preference = newNotificationPreference;
 	}
 
 
