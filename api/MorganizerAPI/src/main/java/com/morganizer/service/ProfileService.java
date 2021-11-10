@@ -52,7 +52,7 @@ public class ProfileService {
 	public ProfileResponse addProfile(ProfileRequest profileRequest) {
 		UserDetailsEntity user = userRepo.getOne(profileRequest.getUserId());
 		ProfileEntity profile = new ProfileEntity(profileRequest.getName(), profileRequest.getEmail(), profileRequest.getPhoneNumber(),
-				profileRequest.getGender(), profileRequest.getBirthdate(), profileRequest.getColor(), user, profileRequest.isSelected(). profileRequest.getNotificationPreference());
+				profileRequest.getGender(), profileRequest.getBirthdate(), profileRequest.getColor(), user, profileRequest.isSelected(), profileRequest.getNotificationPreference());
 		
 		if(profileRequest.getProfileId()!=null) {
 			profile.setProfileId(profileRequest.getProfileId());
