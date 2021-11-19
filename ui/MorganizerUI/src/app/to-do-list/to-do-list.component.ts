@@ -72,6 +72,7 @@ export class ToDoListComponent implements OnInit {
         this.removeTask(this.selectedTodoList.value.tasks[index]);
         this.selectedTodoList.value.tasks.splice(index, 1);
       }
+      console.log("hello")
     });
   }
 

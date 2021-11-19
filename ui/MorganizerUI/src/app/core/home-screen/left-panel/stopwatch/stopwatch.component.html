@@ -1,0 +1,17 @@
+<div class="container">
+	<section class="timer-counter-label">
+		<div *ngIf="counter" [ngClass]="{blink: !running}">
+			<span>{{hours}}:</span><span>{{minutes}}:</span><span>{{seconds}}</span>
+        </div>
+		<div *ngIf="!counter">
+			<span>{{hours}}:</span><span>{{minutes}}:</span><span>{{seconds}}</span>
+		</div>
+	</section>
+	<div class="timer-button-container" *ngIf="showTimerControls">
+		<button mat-raised-button color="primary" class="timer-button" (click)="startTimer()">
+			{{ startText }}
+		</button>
+		<button mat-raised-button color="primary" class="timer-button" (click)="clearTimer()">Clear</button>
+		<button mat-raised-button color="primary" class="timer-button" (click)="saveTime()">Save</button>
+	</div>
+</div>
