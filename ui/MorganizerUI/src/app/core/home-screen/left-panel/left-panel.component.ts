@@ -10,6 +10,8 @@ import { AddProfileComponent } from 'src/app/add-profile/add-profile.component';
 import { ConfirmationDialogService } from 'src/app/core/confirmation-dialog/confirmation-dialog.service';
 import { EventService } from 'src/app/services/event.service';
 import { HomeScreenComponent } from '../home-screen.component';
+import { EventModel } from 'src/app/services/model/event-model';
+import { CalendarEvent } from 'calendar-utils';
 
 export interface MyCalendars {
   name: string;
@@ -30,6 +32,7 @@ export class LeftPanelComponent implements OnInit {
 
   profiles: ProfileModel[] = [];
   mycalendars: MyCalendarModel[] = [];
+  eventToTime: EventModel;
   calendarTitle: string;
   eventTitle: string;
   editField: string;
@@ -75,15 +78,15 @@ export class LeftPanelComponent implements OnInit {
     });
 
     this.eventService.eventTimeTracker.subscribe((event) => {
-      console.log(event);
-      this.showStopWatch = !this.showStopWatch;
+      console.log(event)
+      this.showStopWatch = true;
+      this.eventToTime = event.meta.eventModel;
       this.eventTitle = event.title;
     })
 
     this.eventService.eventTimeSave.subscribe((event) => {
       this.showStopWatch = !this.showStopWatch;
       this.updateEventTimer(event);
-      // homeScreen.ngOnInit();
     })
   }
 
@@ -361,5 +364,15 @@ export class LeftPanelComponent implements OnInit {
 
   updateEventTimer(time) {
     console.log(time)
+
+    this.eventToTime.eventStopwatch = time;
+    this.eventService.addEvent(this.eventToTime).subscribe((response) => {
+      if (response) {
+        this.homeScreen.ngOnInit();
+      }
+    }, (error) => {
+      console.log(error)
+    })
+
   }
 }

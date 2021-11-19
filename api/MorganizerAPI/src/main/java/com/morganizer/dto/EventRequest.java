@@ -21,6 +21,7 @@ public class EventRequest {
 	private long calendarId;
 	private boolean allDayEvent;
 	private CalendarResponse calendar;
+	private String eventStopwatch;
 	
 	public EventRequest() {
 		
@@ -32,7 +33,7 @@ public class EventRequest {
 	
 	public EventRequest(long userId, long eventId, String title, String category, String startTime, String endTime,
 			String location, String description, String notificationType, long recurringModeId, List<ProfileResponse> assigneeList,
-			String lastUpdateOn, List<Long> reminderList,long calendarId, boolean allDayEvent,CalendarResponse calendar) {
+			String lastUpdateOn, List<Long> reminderList,long calendarId, boolean allDayEvent,CalendarResponse calendar, String eventStopwatch) {
 		super();
 		this.userId = userId;
 		this.eventId = eventId;
@@ -51,6 +52,7 @@ public class EventRequest {
 		this.calendarId = calendarId;
 		this.allDayEvent = allDayEvent;
 		this.calendar=calendar;
+		this.eventStopwatch = eventStopwatch;
 	}
 		
 	public long getRecurringModeId() {
@@ -183,7 +185,12 @@ public class EventRequest {
 		this.calendar = calendar;
 	}
 	
+	public void setEventStopwatch(String timeValue) {
+		this.eventStopwatch = timeValue;
+	}
 	
-	
+	public String getEventStopwatch() {
+		return eventStopwatch;
+	}
 	
 }
