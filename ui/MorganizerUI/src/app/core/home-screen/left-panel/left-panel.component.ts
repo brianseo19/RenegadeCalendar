@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { AddProfileComponent } from 'src/app/add-profile/add-profile.component';
 import { ConfirmationDialogService } from 'src/app/core/confirmation-dialog/confirmation-dialog.service';
+import { EventService } from 'src/app/services/event.service';
+import { HomeScreenComponent } from '../home-screen.component';
 
 export interface MyCalendars {
   name: string;
@@ -29,9 +31,11 @@ export class LeftPanelComponent implements OnInit {
   profiles: ProfileModel[] = [];
   mycalendars: MyCalendarModel[] = [];
   calendarTitle: string;
+  eventTitle: string;
   editField: string;
   defaultProfileId: number;
   defaultCalendarId: number;
+  showStopWatch: boolean = false;
   colorPalette: Array<string> = [
     '#f44336',
     '#e91e63',
@@ -57,8 +61,10 @@ export class LeftPanelComponent implements OnInit {
     private profileService: ProfileService,
     private storeService: StoreService,
     private calendarService: MyCalendarService,
+    private eventService: EventService,
     private dialog: MatDialog,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private homeScreen: HomeScreenComponent
   ) {
     this.profileService.addProfileEvent.subscribe((profile) => {
       this.profiles = this.profiles.filter(
@@ -67,6 +73,18 @@ export class LeftPanelComponent implements OnInit {
       this.profiles.push(profile);
       this.sortProfiles();
     });
+
+    this.eventService.eventTimeTracker.subscribe((event) => {
+      console.log(event);
+      this.showStopWatch = !this.showStopWatch;
+      this.eventTitle = event.title;
+    })
+
+    this.eventService.eventTimeSave.subscribe((event) => {
+      this.showStopWatch = !this.showStopWatch;
+      this.updateEventTimer(event);
+      // homeScreen.ngOnInit();
+    })
   }
 
   sortProfiles() {
@@ -339,5 +357,9 @@ export class LeftPanelComponent implements OnInit {
 
   changeValue(property: string, event: any) {
     this.editField = event.target.textContent;
+  }
+
+  updateEventTimer(time) {
+    console.log(time)
   }
 }
