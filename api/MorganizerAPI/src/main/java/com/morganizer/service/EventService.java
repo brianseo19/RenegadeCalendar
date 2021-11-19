@@ -95,7 +95,7 @@ public class EventService {
 			response.add(new EventRequest(event.getUser().getId(), event.getId(), event.getEventTitle(), null,
 					event.getStartTime().toString(), event.getEndTime().toString(), event.getLocation(),
 					event.getEventDescription(), null, event.getRecurringMode().getId(),
-					profileList, event.getLastUpdatedOn().toString(), reminderLst,event.getCalendar().getCalendarId(),event.isAllDayEvent(),calendar));
+					profileList, event.getLastUpdatedOn().toString(), reminderLst,event.getCalendar().getCalendarId(),event.isAllDayEvent(),calendar, event.getEventStopwatch()));
 		}
 		
 		return response;
@@ -121,7 +121,7 @@ public class EventService {
 		EventDetailsEntity event = new EventDetailsEntity(user, eventRequest.getTitle(), eventRequest.getDescription(),
 				startTime, endTime,
 				recurringMode, eventRequest.getLocation(),
-				assigneeList,  lastUpdatedOn,reminderList, calendar, eventRequest.isAllDayEvent());
+				assigneeList,  lastUpdatedOn,reminderList, calendar, eventRequest.isAllDayEvent(), eventRequest.getEventStopwatch());
 
 		String alertType = "Create Event";
 		if (eventRequest.getEventId() != 0) {
@@ -142,7 +142,7 @@ public class EventService {
 		return new EventRequest(savedEntity.getUser().getId(), savedEntity.getId(), savedEntity.getEventTitle(), null,
 				savedEntity.getStartTime().toString(), savedEntity.getEndTime().toString(), savedEntity.getLocation(),
 				savedEntity.getEventDescription(), null, savedEntity.getRecurringMode().getId(),
-				profileList, savedEntity.getLastUpdatedOn().toString(), reminders,event.getCalendar().getCalendarId(),event.isAllDayEvent(),null);
+				profileList, savedEntity.getLastUpdatedOn().toString(), reminders,event.getCalendar().getCalendarId(),event.isAllDayEvent(),null, event.getEventStopwatch());
 	}
 	
 	@Transactional

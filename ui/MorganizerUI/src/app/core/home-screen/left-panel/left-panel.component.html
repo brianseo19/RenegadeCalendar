@@ -22,9 +22,13 @@
         >
       </mat-expansion-panel-header>
       <div class="event-timer">
+        <div class="event-title">
+          {{ eventTitle }}
+        </div>
         <app-stopwatch
           [start]="_start"
           [showTimerControls]="true"
+          [eventStopwatch]="eventToTime.eventStopwatch"
         ></app-stopwatch>
       </div>
     </mat-expansion-panel>
