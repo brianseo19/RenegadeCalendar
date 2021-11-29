@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS billionaires;
-
-CREATE TABLE billionaires (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  first_name VARCHAR(250) NOT NULL,
-  last_name VARCHAR(250) NOT NULL,
-  career VARCHAR(250) DEFAULT NULL
-);
-
-INSERT INTO billionaires (first_name, last_name, career) VALUES
-  ('Aliko', 'Dangote', 'Billionaire Industrialist'),
-  ('Bill', 'Gates', 'Billionaire Tech Entrepreneur'),
-  ('Folrunsho', 'Alakija', 'Billionaire Oil Magnate');
+INSERT INTO recurring_mode (mode_id, description) VALUES
+  (1, 'none'),
+  (2,'daily'),
+  (3,'weekly'),
+  (4,'biweekly'),
+  (5,'montly'),
+  (6,'yearly');
+  
+INSERT INTO reset_questions (questionid, questiontext) VALUES
+  (1, 'What is your last name?),
+  (2, 'What is your mother's maiden name?'),
+  (3, 'What is your favorite color?'),
+  (4, 'What was your first car?');
