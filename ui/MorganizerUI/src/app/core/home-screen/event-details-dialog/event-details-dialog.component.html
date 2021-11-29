@@ -27,6 +27,15 @@
         >mode</mat-icon
       >
     </div>
+    <div class="p-2">
+      <mat-icon
+        class="material-icons md-18"
+        style="cursor: pointer"
+        matTooltip="Time Event"
+        (click)="startTimeTracker('Timer')"
+        >timer</mat-icon
+      >
+    </div>
   </div>
   <div class="row">
     <div class="col-md-2"></div>
@@ -86,8 +95,16 @@
       <div>{{ event.meta.eventModel.description }}</div>
     </div>
   </div>
+  <div class="row" *ngIf="event.meta.eventModel.eventStopwatch">
+    <div class="col-md-2">
+      <mat-icon class="material-icons md-18"> timer </mat-icon>
+    </div>
+    <div class="col-md-10">
+      <div>{{ event.meta.eventModel.eventStopwatch }} (hr:min:sec)</div>
+    </div>
+  </div>
   <!-- Display only if all Day event/ Recurring Event-->
-  <div class="row" *ngIf="event.meta.eventModel.recurringModeId!=1">
+  <div class="row" *ngIf="event.meta.eventModel.recurringModeId != 1">
     <div class="col-md-2">
       <mat-icon class="material-icons md-18"> loop </mat-icon>
     </div>

@@ -13,13 +13,19 @@ export class EventDetailsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
   closeDialog() {
     this.dialogRef.close(null);
   }
+
   editEvent(mode) {
     this.dialogRef.close(mode);
   }
 
+  startTimeTracker(mode) {
+    this.dialogRef.close(mode);
+  }
+  
   recurringEventsArr = [
     'NA',
     'None',

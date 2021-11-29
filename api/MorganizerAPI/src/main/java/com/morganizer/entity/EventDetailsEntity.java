@@ -28,6 +28,7 @@ public class EventDetailsEntity {
 	private String eventDescription;
 	private Timestamp startTime;
 	private Timestamp endTime;
+	private String eventStopwatch;
 	
 	@ManyToOne
 	@JoinColumn(name = "mode_id", referencedColumnName = "mode_id")
@@ -61,7 +62,7 @@ public class EventDetailsEntity {
 	public EventDetailsEntity(UserDetailsEntity user, String eventTitle, String eventDescription, Timestamp startTime,
 			Timestamp endTime, RecurringModeEntity recurringMode, String location, List<ProfileEntity> assigneeList,
 			Timestamp lastUpdatedOn, List<EventReminderEntity> reminderList, CalendarEntity calendar,
-			boolean allDayEvent) {
+			boolean allDayEvent, String eventStopwatch) {
 		super();
 		this.user = user;
 		this.eventTitle = eventTitle;
@@ -75,6 +76,7 @@ public class EventDetailsEntity {
 		this.reminderList = reminderList;
 		this.calendar = calendar;
 		this.allDayEvent = allDayEvent;
+		this.eventStopwatch = eventStopwatch;
 	}
 
 	public long getId() {
@@ -182,4 +184,11 @@ public class EventDetailsEntity {
 		this.allDayEvent = allDayEvent;
 	}	
 	
+	public void setEventStopwatch(String timeValue) {
+		this.eventStopwatch = timeValue;
+	}
+	
+	public String getEventStopwatch() {
+		return eventStopwatch;
+	}
 }

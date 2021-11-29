@@ -16,4 +16,5 @@ export class EventModel {
   reminderList: number[] = [];
   allDayEvent: boolean;
   calendar: MyCalendarModel;
+  eventStopwatch: string;
 }
