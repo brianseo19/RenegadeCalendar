@@ -12,6 +12,9 @@ import { StoreService } from './store.service';
 export class EventService {
   eventURL: string;
   eventDropped: Subject<any> = new Subject();
+  eventTimeTracker: Subject<any> = new Subject();
+  eventTimeSave: Subject<any> = new Subject();
+
   constructor(
     @Inject(APP_CONFIG) private appConfig: IAppConfig,
     private http: HttpClient,
@@ -42,7 +45,17 @@ export class EventService {
       this.eventURL + this.appConfig.deleteEvent(calendarEvent)
     );
   }
+
   triggerEventDropped(event) {
     this.eventDropped.next(event);
   }
+
+  triggerStopWatchView(event) {
+    this.eventTimeTracker.next(event);
+  }
+
+  triggerTimeSave(event) {
+    this.eventTimeSave.next(event);
+  }
+
 }

@@ -55,6 +55,19 @@ tr>td {
   overflow: auto;
 }
 
+.event-timer-title {
+  text-align: center;
+  font-size: medium;
+}
+
+.event-title {
+  margin-bottom: 8px;
+  font-size: medium;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @media all and (min-width: 768px) {
   tr  {
     td {

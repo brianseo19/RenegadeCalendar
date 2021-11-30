@@ -78,6 +78,8 @@ import { AgendaComponent } from './core/home-screen/agenda/agenda.component';
 import { ConfirmationDialogComponent } from './core/confirmation-dialog/confirmation-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LongPressDirective } from './core/home-screen/LongPressDirective';
+import { StopwatchComponent } from './core/home-screen/left-panel/stopwatch/stopwatch.component';
+import { SaveTimeDialogComponent } from './core/home-screen/left-panel/stopwatch/save-time-dialog/save-time-dialog.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,8 @@ import { LongPressDirective } from './core/home-screen/LongPressDirective';
     AgendaComponent,
     ConfirmationDialogComponent,
     LongPressDirective,
+    StopwatchComponent,
+    SaveTimeDialogComponent,
   ],
   imports: [
     BrowserModule,

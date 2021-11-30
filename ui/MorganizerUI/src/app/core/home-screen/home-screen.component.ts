@@ -346,6 +346,9 @@ export class HomeScreenComponent implements OnInit {
           .catch(() => {});
       }
     }
+    else if (action === 'Timer') {
+      this.eventService.triggerStopWatchView(event);
+    }
   }
 
   addEvent(day = null): void {
