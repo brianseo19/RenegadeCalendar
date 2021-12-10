@@ -1,7 +1,7 @@
 <div class="row">
   <div
     class="d-none d-sm-block col-xl-2 col-lg-2 col-md-2 col-sm-2"
-    style="overflow: auto; padding-right: 0px;"
+    style="overflow: auto; padding-right: 0px"
   >
     <app-left-panel
       (emitSelectedProfiles)="receiveSelectedProfiles($event)"
@@ -86,7 +86,7 @@
                           class="cell-profile-dot mat-elevation-z2"
                           [style.background]="assignee.color"
                           matTooltip="{{ assignee.name }}"
-                          matTooltipClass = "monthTooltip"
+                          matTooltipClass="monthTooltip"
                         ></span>
                       </div>
                       <div
@@ -95,7 +95,10 @@
                           !event.assigneeList || event.assigneeList.length == 0
                         "
                       >
-                        <span matTooltip="No Assignee " matTooltipClass = "monthTooltip">
+                        <span
+                          matTooltip="No Assignee "
+                          matTooltipClass="monthTooltip"
+                        >
                           <mat-icon class="material-icons md-12"
                             >block</mat-icon
                           >
@@ -136,7 +139,7 @@
                           class="cell-profile-dot mat-elevation-z2"
                           style="visibility: hidden"
                           matTooltip="{{ assignee.name }}"
-                          matTooltipClass = "monthTooltip"
+                          matTooltipClass="monthTooltip"
                         ></span>
                       </div>
                       <div
@@ -147,7 +150,7 @@
                       >
                         <span
                           matTooltip="No Assignee "
-                          matTooltipClass = "monthTooltip"
+                          matTooltipClass="monthTooltip"
                           class="mat-elevation-z2"
                         ></span>
                         <span>
@@ -193,7 +196,7 @@
                         class="cell-profile-dot mat-elevation-z2"
                         [style.background]="assignee.color"
                         matTooltip="{{ assignee.name }}"
-                        matTooltipClass = "monthTooltip"
+                        matTooltipClass="monthTooltip"
                       ></span>
                     </div>
                     <div
@@ -202,7 +205,10 @@
                         !event.assigneeList || event.assigneeList.length == 0
                       "
                     >
-                      <span matTooltip="No Assignee " matTooltipClass = "monthTooltip">
+                      <span
+                        matTooltip="No Assignee "
+                        matTooltipClass="monthTooltip"
+                      >
                         <mat-icon class="material-icons md-12">block</mat-icon>
                       </span>
                     </div>
@@ -264,21 +270,10 @@
       >
         <div
           class="week-event"
-          style="--color: {{ weekEvent.event.color.primary }}"
+          (click)="showEventDetails(weekEvent.event)"
+          style="--color: {{ weekEvent.event.color.primary }}; cursor: pointer;"
           (mwlClick)="eventClicked.emit({ sourceEvent: $event })"
         >
-          <!-- title template -->
-          <!-- <ng-template #eventTitleTemplate let-event="weekEvent.event">
-            <div class="week-text">
-              <div class="week-event-start">
-                {{ weekEvent.event.start | date: "h:mm aa" }}
-              </div>
-              <div class="week-event-title">
-                {{ weekEvent.event.title }}
-              </div>
-            </div>
-            
-          </ng-template> -->
           <div class="week-event-title">
             <mwl-calendar-event-title
               [event]="weekEvent.tempEvent || weekEvent.event"
@@ -304,28 +299,32 @@
         >
         </mwl-calendar-month-view>
         <ng-container
-        *ngFor="let profile of selectedProfiles">
-          <mwl-calendar-week-view
-            *ngSwitchCase="CalendarView.Week"
-            precision="minutes"
-            [eventTemplate]="weekEventTemplate"
-            [viewDate]="viewDate"
-            [events]="recurringEventsToDisplay"
-            [refresh]="refresh"
-            [dayStartHour]="dayStartHour"
-            [dayEndHour]="dayEndHour"
-            (eventClicked)="handleEvent('Clicked', $event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)"
-            (beforeViewRender)="updateCalendarEvents($event)"
-          >
-          </mwl-calendar-week-view>
+          *ngFor="let profile of selectedProfiles.profileId; index as i"
+        >
+          <div class="week-view" *ngSwitchCase="CalendarView.Week">
+            <div class="week-view-profileNames">
+              {{ selectedProfiles.profileName[i] }}
+            </div>
+            <mwl-calendar-week-view
+              precision="minutes"
+              [eventTemplate]="weekEventTemplate"
+              [viewDate]="viewDate"
+              [events]="weekViewCalendarEvents[profile]"
+              [refresh]="refresh"
+              [dayStartHour]="dayStartHour"
+              [dayEndHour]="dayEndHour"
+              (eventTimesChanged)="eventTimesChanged($event)"
+              (beforeViewRender)="updateWeekViewCalendarEvents($event)"
+            >
+            </mwl-calendar-week-view>
+          </div>
         </ng-container>
         <mwl-calendar-day-view
           *ngSwitchCase="CalendarView.Day"
+          [eventTemplate]="weekEventTemplate"
           [viewDate]="viewDate"
           [events]="recurringEventsToDisplay"
           [refresh]="refresh"
-          (eventClicked)="handleEvent('Clicked', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)"
           (beforeViewRender)="updateCalendarEvents($event)"
         >
