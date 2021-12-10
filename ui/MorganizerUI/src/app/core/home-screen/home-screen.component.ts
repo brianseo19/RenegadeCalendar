@@ -21,7 +21,7 @@ import {
   CalendarEventTitleFormatter,
   CalendarView,
 } from 'angular-calendar';
-import { Observable, Subject } from 'rxjs';
+import { config, Observable, Subject } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEventComponent } from 'src/app/create-event/create-event.component';
@@ -82,7 +82,7 @@ export class HomeScreenComponent implements OnInit {
   loading = true;
   update: boolean = false;
   showAgenda = false;
-  selectedProfiles = [];
+  selectedProfiles = {profileId: [], profileName: []};
   selectedCalendars = [];
 
   CalendarView = CalendarView;
@@ -398,6 +398,7 @@ export class HomeScreenComponent implements OnInit {
   }
 
   receiveSelectedProfiles(data) {
+    console.log(data)
     this.selectedProfiles = data;
     this.updateEventsToDisplay();
   }
@@ -434,10 +435,11 @@ export class HomeScreenComponent implements OnInit {
         return flag;
       };
     }
+    this.configureWeekEvents();
     this.eventsToDisplay = this.events.filter(
       eventFilter(
         this.selectedCalendars,
-        this.selectedProfiles,
+        this.selectedProfiles.profileId,
         this.defaultProfileId
       )
     );
@@ -599,25 +601,122 @@ export class HomeScreenComponent implements OnInit {
     }
   }
 
-  onLongPress($event, event) {
-    console.log($event)
-    if ($event === true) {
-      this.dialog.open(EventDetailsDialogComponent, {
-        data: event,
-        width: '500px',
-        panelClass: [
-          'animate__animated',
-          'animate__fadeIn',
-          'event-overview-dialog-style',
-        ],
+  weekViewCalendarEvents: {[key: string]: any} = {};
+  updateWeekViewCalendarEvents(
+    viewRender: CalendarWeekViewBeforeRenderEvent
+  ): void {
+    if (
+      !this.viewPeriod ||
+      !moment(this.viewPeriod.start).isSame(viewRender.period.start) ||
+      !moment(this.viewPeriod.end).isSame(viewRender.period.end) ||
+      this.update
+    ) {
+      this.update = false;
+      // this.weekViewCalendarEvents = {};
+      this.viewPeriod = viewRender.period;
+      console.log(this.viewPeriod)
+      this.configureWeekEvents();
+
+      console.table(this.weekViewCalendarEvents)
+      this.eventsToDisplay.forEach((event) => {
+
+        console.time("second")
+        event.meta.eventModel.assigneeList.forEach((assignee) => {
+          if (assignee.profileId in this.weekViewCalendarEvents) {
+            // this.weekViewCalendarEvents[assignee.profileId].push(event);
+
+            if (event.meta.eventModel.recurringModeId == 1) {
+              this.weekViewCalendarEvents[assignee.profileId].push(event);
+            } else {
+              if (event.meta.eventModel.recurringModeId == 2) {
+                //daily
+                this.rule = new RRule({
+                  freq: RRule.DAILY,
+                  dtstart: moment(event.start).startOf('day').toDate(),
+                  until: moment(viewRender.period.end).endOf('day').toDate(),
+                });
+              } else if (event.meta.eventModel.recurringModeId == 3) {
+                //weekly
+                var d = new Date(event.start);
+                var extractDayOfWeek = d.getDay();
+                this.rule = new RRule({
+                  freq: RRule.WEEKLY,
+                  byweekday: [this.rruleForDays[extractDayOfWeek]],
+                  dtstart: moment(event.start).startOf('day').toDate(),
+                  until: moment(viewRender.period.end).endOf('day').toDate(),
+                });
+              } else if (event.meta.eventModel.recurringModeId == 5) {
+                //monthly
+    
+                var d = new Date(event.start);
+                var extractDay = d.getDate();
+                this.rule = new RRule({
+                  freq: RRule.MONTHLY,
+                  bymonthday: extractDay,
+                  dtstart: moment(event.start).startOf('day').toDate(),
+                  until: moment(viewRender.period.end).endOf('day').toDate(),
+                });
+              } else if (event.meta.eventModel.recurringModeId == 6) {
+                //yearly
+                var d = new Date(event.start);
+                var extractDay = d.getDate();
+                var extractMonth = d.getMonth() + 1;
+                this.rule = new RRule({
+                  freq: RRule.YEARLY,
+                  bymonth: extractMonth,
+                  bymonthday: extractDay,
+                  dtstart: moment(event.start).startOf('day').toDate(),
+                  until: moment(viewRender.period.end).endOf('day').toDate(),
+                });
+              }
+              this.rule.all().forEach((date) => {
+                let hour = moment(event.start).toDate().getHours();
+                let min = moment(event.start).toDate().getMinutes();
+                let dur = moment.duration(
+                  moment(event.end).diff(moment(event.start))
+                );
+                let startTime = moment(date).add(hour, 'h').add(min, 'm').toDate();
+                let endTime = moment(startTime)
+                  .add(dur.asMilliseconds(), 'ms')
+                  .toDate();
+                let temp = {
+                  title: event.title,
+                  allDay: event.allDay,
+                  start: startTime,
+                  end: endTime,
+                  color: {
+                    primary: event.color.primary,
+                    secondary: event.color.secondary,
+                  },
+                  actions: event.actions,
+                  resizable: event.resizable,
+                  draggable: true,
+                  meta: event.meta,
+                };
+                temp['assigneeList'] = event.meta.eventModel.assigneeList;
+                this.weekViewCalendarEvents[assignee.profileId].push(temp);
+              });
+            }
+          }
+        })
+        console.timeEnd("second")
+        
+        
+        
       });
+      console.log(this.weekViewCalendarEvents)
+      this.cdr.detectChanges();
     }
-    else {
-      this.dialog.closeAll();
-    }
-    
-    
   }
+
+  configureWeekEvents() {
+    console.log("in events")
+    this.weekViewCalendarEvents = {}
+    this.selectedProfiles.profileId.forEach((profile) => {
+      this.weekViewCalendarEvents[profile] = [];
+    })
+  }
+  
 
 
 }

@@ -276,11 +276,16 @@ export class LeftPanelComponent implements OnInit {
   }
 
   sendSelectedProfiles() {
-    let selectedProfiles = [];
-    selectedProfiles = this.profiles
+    let profileId = [];
+    profileId = this.profiles
       .filter((profile) => profile.selected)
       .map((profile) => profile.profileId);
-    this.emitSelectedProfiles.emit(selectedProfiles);
+    
+    let profileName = [];
+    profileName = this.profiles
+      .filter((profile) => profile.selected)
+      .map((profile) => profile.name);
+    this.emitSelectedProfiles.emit({profileId, profileName});
   }
 
   updateCalendar(calendar, fetchEvents = false) {

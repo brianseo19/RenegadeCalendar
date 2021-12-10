@@ -52,6 +52,9 @@ body {
 .cal-week-view .cal-header.cal-today {
   background-color: #fcebed;
 }
+.cal-week-view {
+  margin-bottom: 15px;
+}
 
 .events-show-more-dialog-style {
   mat-dialog-container {
