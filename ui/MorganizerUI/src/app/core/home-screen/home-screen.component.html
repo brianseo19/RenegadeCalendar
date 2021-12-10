@@ -46,6 +46,11 @@
             </div>
 
             <div
+              [ngbPopover]="popContent"
+              [popoverTitle]="popTitle"
+              [openDelay]="500"
+              triggers="mouseenter:mouseleave"
+              placement="left"
               *ngFor="
                 let event of getSortedEvents(day.events)
                   | slice
@@ -55,6 +60,14 @@
                         : 2)
               "
             >
+
+              <!-- template for event popover when hovering over -->
+              <ng-template #popTitle>{{event.title}}</ng-template>
+              <ng-template #popContent>
+                <app-event-popover [event]="event"></app-event-popover>
+              </ng-template>
+              <!-- end template -->
+
               <div
                 mwlDraggable
                 mwlDroppable

@@ -717,6 +717,12 @@ export class HomeScreenComponent implements OnInit {
     })
   }
   
+  over() {
+    console.log("over")
+  }
 
+  out() {
+    console.log("out")
+  }
 
 }
