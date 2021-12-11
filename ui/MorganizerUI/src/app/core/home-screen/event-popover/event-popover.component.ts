@@ -12,6 +12,7 @@ export class EventPopoverComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.event)
   }
 
 }

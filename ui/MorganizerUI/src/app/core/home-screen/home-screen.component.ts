@@ -716,13 +716,5 @@ export class HomeScreenComponent implements OnInit {
       this.weekViewCalendarEvents[profile] = [];
     })
   }
-  
-  over() {
-    console.log("over")
-  }
-
-  out() {
-    console.log("out")
-  }
 
 }
