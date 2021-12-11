@@ -80,6 +80,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LongPressDirective } from './core/home-screen/LongPressDirective';
 import { StopwatchComponent } from './core/home-screen/left-panel/stopwatch/stopwatch.component';
 import { SaveTimeDialogComponent } from './core/home-screen/left-panel/stopwatch/save-time-dialog/save-time-dialog.component';
+import { EventPopoverComponent } from './core/home-screen/event-popover/event-popover.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { SaveTimeDialogComponent } from './core/home-screen/left-panel/stopwatch
     LongPressDirective,
     StopwatchComponent,
     SaveTimeDialogComponent,
+    EventPopoverComponent,
   ],
   imports: [
     BrowserModule,

@@ -716,7 +716,5 @@ export class HomeScreenComponent implements OnInit {
       this.weekViewCalendarEvents[profile] = [];
     })
   }
-  
-
 
 }

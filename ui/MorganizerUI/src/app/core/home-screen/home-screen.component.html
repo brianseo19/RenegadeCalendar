@@ -46,6 +46,11 @@
             </div>
 
             <div
+              [ngbPopover]="popContent"
+              [popoverTitle]="popTitle"
+              [openDelay]="500"
+              triggers="mouseenter:mouseleave"
+              placement="left"
               *ngFor="
                 let event of getSortedEvents(day.events)
                   | slice
@@ -55,6 +60,13 @@
                         : 2)
               "
             >
+              <!-- template for event popover when hovering over -->
+              <ng-template #popTitle>{{ event.title }}</ng-template>
+              <ng-template #popContent>
+                <app-event-popover [event]="event"></app-event-popover>
+              </ng-template>
+              <!-- end template -->
+
               <div
                 mwlDraggable
                 mwlDroppable
@@ -269,11 +281,24 @@
         let-daysInWeek="daysInWeek"
       >
         <div
+          [ngbPopover]="popContent"
+          [popoverTitle]="popTitle"
+          [openDelay]="500"
+          triggers="mouseenter:mouseleave"
+          placement="left"
+          container="body"
           class="week-event"
           (click)="showEventDetails(weekEvent.event)"
           style="--color: {{ weekEvent.event.color.primary }}; cursor: pointer;"
           (mwlClick)="eventClicked.emit({ sourceEvent: $event })"
         >
+          <!-- template for event popover when hovering over -->
+          <ng-template #popTitle>{{ weekEvent.event.title }}</ng-template>
+          <ng-template #popContent>
+            <app-event-popover [event]="weekEvent.event"></app-event-popover>
+          </ng-template>
+          <!-- end template -->
+
           <div class="week-event-title">
             <mwl-calendar-event-title
               [event]="weekEvent.tempEvent || weekEvent.event"
