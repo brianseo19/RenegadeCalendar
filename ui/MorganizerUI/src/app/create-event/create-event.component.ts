@@ -15,8 +15,6 @@ import {
 import { EventEmitter } from '@angular/core';
 import { EventService } from '../services/event.service';
 import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
   NgxMatDateFormats,
   NGX_MAT_DATE_FORMATS,
 } from '@angular-material-components/datetime-picker';
@@ -43,8 +41,10 @@ export class CreateEventComponent implements OnInit {
   editFlag: boolean = false;
   calendarList = [];
   assigneeList = [];
-  public enableMeridian = true;
-  public defaultTime = [new Date().getHours, 0];
+  currentDate = new Date();
+  enableMeridian = true;
+  defaultTime = [];
+  defaultEndTime = [];
   allDayFlag: boolean = false;
 
   constructor(
@@ -61,8 +61,15 @@ export class CreateEventComponent implements OnInit {
     this.fetchMyCalendarList();
     this.fetchAssigneeList();
     this.editFlag = this.data.title == null ? false : true;
-    // this.color = this.data.color == null ? '#1e90ff' : this.data.color;
-    // this.data.participant = [1];
+    
+    if (this.currentDate.getMinutes() > 30) {
+      this.defaultTime = [this.currentDate.getHours()+1, 0];
+      this.defaultEndTime = [this.currentDate.getHours()+2, 0];
+    }
+    else {
+      this.defaultTime = [this.currentDate.getHours(), 0];
+      this.defaultEndTime = [this.currentDate.getHours()+1, 0];
+    }
   }
 
   close(response): void {
@@ -182,7 +189,7 @@ export class CreateEventComponent implements OnInit {
   }
 }
 
-export const DATETIME_WITHOUT_SECONDS_FORMAT = 'MM-DD-YYYY, hh:mm A';
+export const DATETIME_WITHOUT_SECONDS_FORMAT = 'MM-DD-YYYY, h:mm A';
 export const CUSTOM_DATE_TIME_FORMAT: NgxMatDateFormats = {
   parse: {
     dateInput: DATETIME_WITHOUT_SECONDS_FORMAT,

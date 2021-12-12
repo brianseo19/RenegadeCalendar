@@ -28,11 +28,6 @@ export class LoginComponent implements OnInit {
   pauseOnIndicator = false;
   pauseOnHover = true;
   pauseOnFocus = true;
-  images = [
-    '../../../assets/images/b4.png',
-    '../../../assets/images/b5.png',
-    '../../../assets/images/b6.png',
-  ];
   error: any = {};
   showSignUp = false;
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
@@ -98,23 +93,23 @@ export class LoginComponent implements OnInit {
     }
     this.paused = !this.paused;
   }
-  onSlide(slideEvent: NgbSlideEvent) {
-    if (
-      this.unpauseOnArrow &&
-      slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT ||
-        slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
-    ) {
-      this.togglePaused();
-    }
-    if (
-      this.pauseOnIndicator &&
-      !slideEvent.paused &&
-      slideEvent.source === NgbSlideEventSource.INDICATOR
-    ) {
-      this.togglePaused();
-    }
-  }
+  // onSlide(slideEvent: NgbSlideEvent) {
+  //   if (
+  //     this.unpauseOnArrow &&
+  //     slideEvent.paused &&
+  //     (slideEvent.source === NgbSlideEventSource.ARROW_LEFT ||
+  //       slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
+  //   ) {
+  //     this.togglePaused();
+  //   }
+  //   if (
+  //     this.pauseOnIndicator &&
+  //     !slideEvent.paused &&
+  //     slideEvent.source === NgbSlideEventSource.INDICATOR
+  //   ) {
+  //     this.togglePaused();
+  //   }
+  // }
   close() {
     this.loginFailed = false;
     this.error = {};
