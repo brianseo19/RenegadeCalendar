@@ -1,5 +1,7 @@
 package com.morganizer.dto;
 
+import java.util.List;
+
 public class ProfileResponse {	
 	private String name;
 	private String gender;
@@ -10,7 +12,7 @@ public class ProfileResponse {
 	private long userId;
 	private String color;
 	private boolean selected;
-	
+	private List<Long> reminderList;
 	
 	
 	
@@ -21,7 +23,7 @@ public class ProfileResponse {
 	
 	
 	public ProfileResponse(String name, String gender, String phoneNumber, String birthdate, String email,
-			Long profileId, long userId, String color, boolean selected) {
+			Long profileId, long userId, String color, boolean selected, List<Long> reminderList) {
 		super();
 		this.name = name;
 		this.gender = gender;
@@ -32,6 +34,7 @@ public class ProfileResponse {
 		this.userId = userId;
 		this.color = color;
 		this.selected = selected;
+		this.reminderList = reminderList;
 	}
 
 
@@ -88,6 +91,12 @@ public class ProfileResponse {
 	}
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	public List<Long> getReminderList() {
+		return reminderList;
+	}
+	public void setReminderList(List<Long> reminderList) {
+		this.reminderList = reminderList;
 	}
 	
 	
