@@ -30,7 +30,7 @@ export interface IAppConfig {
   checkuser: string;
 }
 export const APPCONFIG: IAppConfig = {
-  morganizerAPIEndpoint: environment.morgainzedAPIURL,
+  morganizerAPIEndpoint: environment.renegadeAPIURL,
   login: '/user/login',
   logout: '/user/logout',
   register: '/user/register',

@@ -2,6 +2,7 @@ package com.morganizer.service;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +73,9 @@ public class UserSignupService {
 
 	
 	private Long addDefaultProfile(UserDetailsEntity user) {
+		List<Long> rootReminderList = new ArrayList<>();
 		ProfileRequest profileRequest = new ProfileRequest(user.getId(), user.getFirstName(), user.getEmail(), user.getGender(), 
-				user.getPhoneNumber(), user.getBirthdate(), "#2055F8", true , null);
+				user.getPhoneNumber(), user.getBirthdate(), "#2055F8", true , rootReminderList);
 		return profileService.addProfile(profileRequest).getProfileId();
 	}
 

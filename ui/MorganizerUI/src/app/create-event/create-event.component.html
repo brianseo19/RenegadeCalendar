@@ -218,6 +218,7 @@
       color="primary"
       style="margin: 0.5em"
       (click)="createEvent()"
+      [disabled]="data.title == null || data.calendar == null"
       *ngIf="!editFlag"
     >
       Create Event

@@ -311,6 +311,7 @@ export class LeftPanelComponent implements OnInit {
     this.emitSelectedCalendars.emit(selectedCalendars);
   }
   addEvent() {
+    console.log("create event")
     this.storeService.createEventEmitter.next(true);
   }
   // updateCalendarColor(calendar) {
