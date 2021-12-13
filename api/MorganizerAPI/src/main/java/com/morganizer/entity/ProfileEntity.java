@@ -1,12 +1,14 @@
 package com.morganizer.entity;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 @Entity(name="profile")
 public class ProfileEntity {
@@ -22,13 +24,14 @@ public class ProfileEntity {
     private String birthdate;
     private String color;
     
-    
-    
-
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id")
     private UserDetailsEntity user;
     private boolean selected;
+
+	@ManyToMany
+	@JoinColumn(name = "reminder", referencedColumnName = "reminder_id")
+	private List<EventReminderEntity> reminderList = new ArrayList<>();
     
     public ProfileEntity() {
     	
@@ -36,7 +39,7 @@ public class ProfileEntity {
     
     
 	public ProfileEntity(String name, String email, String phoneNumber, String gender, String birthdate, String color,
-			UserDetailsEntity user, boolean selected) {
+			UserDetailsEntity user, boolean selected, List<EventReminderEntity> reminderList) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -46,6 +49,7 @@ public class ProfileEntity {
 		this.color = color;
 		this.user = user;
 		this.selected = selected;
+		this.reminderList = reminderList;
 	}
 
 
@@ -118,11 +122,17 @@ public class ProfileEntity {
 		return selected;
 	}
 
-
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 	
+	public List<EventReminderEntity> getReminderList() {
+		return reminderList;
+	}
+
+	public void setReminderList(List<EventReminderEntity> reminderList) {
+		this.reminderList = reminderList;
+	}
 	
     
     

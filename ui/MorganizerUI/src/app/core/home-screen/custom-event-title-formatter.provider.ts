@@ -21,9 +21,9 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
 
   week(event: CalendarEvent): string {
     if (!event.meta.eventModel.allDayEvent) {
-      return `<b>${formatDate(event.start, 'hh:mm aa', this.locale)}</b> ${
+      return `${formatDate(event.start, 'h:mm a', this.locale)}<br><b>${
         event.title
-      }`;
+      }<b>`;
     } else  {
       return `${event.title}`;
     }

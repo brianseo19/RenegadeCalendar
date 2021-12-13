@@ -8,6 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { AddProfileComponent } from 'src/app/add-profile/add-profile.component';
 import { ConfirmationDialogService } from 'src/app/core/confirmation-dialog/confirmation-dialog.service';
+import { EventService } from 'src/app/services/event.service';
+import { HomeScreenComponent } from '../home-screen.component';
+import { EventModel } from 'src/app/services/model/event-model';
+import { CalendarEvent } from 'calendar-utils';
 
 export interface MyCalendars {
   name: string;
@@ -28,37 +32,43 @@ export class LeftPanelComponent implements OnInit {
 
   profiles: ProfileModel[] = [];
   mycalendars: MyCalendarModel[] = [];
+  eventToTime: EventModel;
   calendarTitle: string;
+  eventTitle: string;
   editField: string;
   defaultProfileId: number;
   defaultCalendarId: number;
+  showStopWatch: boolean = false;
   colorPalette: Array<string> = [
+    '#e15351',
+    '#e76f51',
+    '#e7739a',
+    '#f5ae62',
+    '#89af6e',
     '#f44336',
     '#e91e63',
     '#9c27b0',
     '#673ab7',
     '#3f51b5',
     '#2196f3',
-    //     '#03a9f4',
-    //     '#00bcd4',
     '#009688',
     '#4caf50',
-    //     '#8bc34a',
-    //     '#cddc39',
     '#ffeb3b',
     '#ffc107',
     '#ff9800',
     '#ff5722',
     '#795548',
-    '#607d8b',
+    '#607d8b'
   ];
 
   constructor(
     private profileService: ProfileService,
     private storeService: StoreService,
     private calendarService: MyCalendarService,
+    private eventService: EventService,
     private dialog: MatDialog,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private homeScreen: HomeScreenComponent
   ) {
     this.profileService.addProfileEvent.subscribe((profile) => {
       this.profiles = this.profiles.filter(
@@ -67,6 +77,18 @@ export class LeftPanelComponent implements OnInit {
       this.profiles.push(profile);
       this.sortProfiles();
     });
+
+    this.eventService.eventTimeTracker.subscribe((event) => {
+      console.log(event)
+      this.showStopWatch = true;
+      this.eventToTime = event.meta.eventModel;
+      this.eventTitle = event.title;
+    })
+
+    this.eventService.eventTimeSave.subscribe((event) => {
+      this.showStopWatch = !this.showStopWatch;
+      this.updateEventTimer(event);
+    })
   }
 
   sortProfiles() {
@@ -255,11 +277,16 @@ export class LeftPanelComponent implements OnInit {
   }
 
   sendSelectedProfiles() {
-    let selectedProfiles = [];
-    selectedProfiles = this.profiles
+    let profileId = [];
+    profileId = this.profiles
       .filter((profile) => profile.selected)
       .map((profile) => profile.profileId);
-    this.emitSelectedProfiles.emit(selectedProfiles);
+    
+    let profileName = [];
+    profileName = this.profiles
+      .filter((profile) => profile.selected)
+      .map((profile) => profile.name);
+    this.emitSelectedProfiles.emit({profileId, profileName});
   }
 
   updateCalendar(calendar, fetchEvents = false) {
@@ -339,5 +366,19 @@ export class LeftPanelComponent implements OnInit {
 
   changeValue(property: string, event: any) {
     this.editField = event.target.textContent;
+  }
+
+  updateEventTimer(time) {
+    console.log(time)
+
+    this.eventToTime.eventStopwatch = time;
+    this.eventService.addEvent(this.eventToTime).subscribe((response) => {
+      if (response) {
+        this.homeScreen.ngOnInit();
+      }
+    }, (error) => {
+      console.log(error)
+    })
+
   }
 }

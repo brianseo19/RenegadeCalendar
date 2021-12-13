@@ -86,16 +86,26 @@ public class EventService {
 		List<EventRequest> response =  new ArrayList<>();
 		
 		for(EventDetailsEntity event:eventList) {			
-			List<Long> reminderLst = new ArrayList<>();
-			List<ProfileResponse> profileList = ModelMapperUtil.mapList(event.getAssigneeList(), ProfileResponse.class);			
+			List<Long> reminderList = new ArrayList<>();
+			List<Long> profileNotificationList = new ArrayList<>();
+			// List<ProfileResponse> profileList = ModelMapperUtil.mapList(event.getAssigneeList(), ProfileResponse.class);
+			List<ProfileResponse> profileList = new ArrayList<>();			
 			for (EventReminderEntity reminder: event.getReminderList()) {
-				reminderLst.add(reminder.getReminderId());
+				reminderList.add(reminder.getReminderId());
 			}
+
+			for (ProfileEntity profile: event.getAssigneeList()) {
+				for (EventReminderEntity reminder: profile.getReminderList()) {
+					profileNotificationList.add(reminder.getReminderId());
+				}
+				profileList.add(new ProfileResponse(profile.getName(), profile.getGender(), profile.getPhoneNumber(), profile.getBirthdate(), profile.getEmail(), profile.getProfileId(), profile.getUser().getId(), profile.getColor(), profile.isSelected(), profileNotificationList));
+			}
+			
 			CalendarResponse calendar = new CalendarResponse(event.getCalendar().getCalendarId(), event.getCalendar().getName(),event.getCalendar().getColor(),0, event.getCalendar().isSelected());	
 			response.add(new EventRequest(event.getUser().getId(), event.getId(), event.getEventTitle(), null,
 					event.getStartTime().toString(), event.getEndTime().toString(), event.getLocation(),
 					event.getEventDescription(), null, event.getRecurringMode().getId(),
-					profileList, event.getLastUpdatedOn().toString(), reminderLst,event.getCalendar().getCalendarId(),event.isAllDayEvent(),calendar));
+					profileList, event.getLastUpdatedOn().toString(), reminderList,event.getCalendar().getCalendarId(),event.isAllDayEvent(),calendar, event.getEventStopwatch()));
 		}
 		
 		return response;
@@ -121,7 +131,7 @@ public class EventService {
 		EventDetailsEntity event = new EventDetailsEntity(user, eventRequest.getTitle(), eventRequest.getDescription(),
 				startTime, endTime,
 				recurringMode, eventRequest.getLocation(),
-				assigneeList,  lastUpdatedOn,reminderList, calendar, eventRequest.isAllDayEvent());
+				assigneeList,  lastUpdatedOn,reminderList, calendar, eventRequest.isAllDayEvent(), eventRequest.getEventStopwatch());
 
 		String alertType = "Create Event";
 		if (eventRequest.getEventId() != 0) {
@@ -134,7 +144,7 @@ public class EventService {
 		for (EventReminderEntity reminder: savedEntity.getReminderList()) {
 			reminders.add(reminder.getReminderId());
 		}
-		
+
 		EmailSenderUtil.sendmail(event, alertType);
 		
 		//tsms.sendSms(event, alertType);
@@ -142,7 +152,7 @@ public class EventService {
 		return new EventRequest(savedEntity.getUser().getId(), savedEntity.getId(), savedEntity.getEventTitle(), null,
 				savedEntity.getStartTime().toString(), savedEntity.getEndTime().toString(), savedEntity.getLocation(),
 				savedEntity.getEventDescription(), null, savedEntity.getRecurringMode().getId(),
-				profileList, savedEntity.getLastUpdatedOn().toString(), reminders,event.getCalendar().getCalendarId(),event.isAllDayEvent(),null);
+				profileList, savedEntity.getLastUpdatedOn().toString(), reminders,event.getCalendar().getCalendarId(),event.isAllDayEvent(),null, event.getEventStopwatch());
 	}
 	
 	@Transactional

@@ -2,27 +2,34 @@ ul {
   list-style-type: none;
 }
 
+tr>td {
+  padding-bottom: 5px;
+}
 // ::ng-deep .mat-checkbox-checked .mat-checkbox-background,
 // .mat-checkbox-indeterminate .mat-checkbox-background {
 //   background-color:inherit!important;
 // }
 
 ::ng-deep .switch.checked {
-  background: #A9A9A9;
+  background: var(--color);
   //background: rgba(black, 0.2);
 }
 ::ng-deep .switch.switch-small {
-  height: 14px;
-  min-width: 24px;
+  height: 20px;
+  min-width: 35px;
 }
 ::ng-deep .switch.switch-small small {
-  width: 13px;
-  height: 13px;
-  right: calc(100% - 13px);
+  width: 19px;
+  height: 19px;
+  right: calc(100% - 19px);
 }
 ::ng-deep .switch.checked small {
   right: 0;
   left: auto;
+}
+
+.profile-calendar-column {
+  padding: 0;
 }
 .delete-icon {
   margin-top: 5px;
@@ -48,6 +55,19 @@ ul {
   overflow: auto;
 }
 
+.event-timer-title {
+  text-align: center;
+  font-size: medium;
+}
+
+.event-title {
+  margin-bottom: 8px;
+  font-size: medium;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @media all and (min-width: 768px) {
   tr  {
     td {

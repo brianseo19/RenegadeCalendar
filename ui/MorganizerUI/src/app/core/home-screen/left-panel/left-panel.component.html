@@ -8,8 +8,29 @@
     <span style="font-size: 23px">+ </span><span>Create</span>
   </button>
 </div>
-<div>
+
+<div class="profile-calendar-column">
   <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel
+      *ngIf="showStopWatch"
+      [expanded]="'true'"
+      #timePanel
+      style="box-shadow: none"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><strong>Event Timer</strong></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="event-timer">
+        <div class="event-title">
+          {{ eventTitle }}
+        </div>
+        <app-stopwatch
+          [start]="_start"
+          [showTimerControls]="true"
+          [eventStopwatch]="eventToTime.eventStopwatch"
+        ></app-stopwatch>
+      </div>
+    </mat-expansion-panel>
     <mat-expansion-panel
       style="box-shadow: none"
       [expanded]="'true'"
@@ -23,22 +44,21 @@
           matTooltip="Add Profile"
           class="material-icons md-24 task-icon"
           style="margin-right: 16px"
-        >person_add</mat-icon
+          >person_add</mat-icon
         >
       </mat-expansion-panel-header>
       <table style="width: 100%">
         <tr *ngFor="let profile of profiles">
-          <td style="width: 15%; vertical-align: top">
+          <td style="width: 15%; vertical-align: top; padding-top: 0px">
             <ui-switch
               size="small"
               defaultBgColor="#F5F5F5"
               [(ngModel)]="profile.selected"
               (click)="updateProfile(profile)"
-              switchColor="{{ profile.color }}"
               style="--color:{{ profile.color }}"
             ></ui-switch>
           </td>
-          <td style="vertical-align: middle; width: 65%">
+          <td style="vertical-align: bottom; width: 65%; padding-left: 10px">
             {{ profile.name }}
           </td>
           <td style="width: 20%">
@@ -47,7 +67,7 @@
               style="float: right; vertical-align: bottom"
               class="material-icons md-18 delete-icon"
               (click)="deleteProfile(profile)"
-            >close</mat-icon
+              >close</mat-icon
             >
           </td>
           <td style="width: 10%">
@@ -61,13 +81,20 @@
             >
             <mat-menu #profileMenu="matMenu">
               <div mat-menu-item style="display: flex">
-                <span style="margin-right: 10px; line-height: 33px"
-                >Pick a Color</span
+                <span
+                  ngx-colors-trigger
+                  [palette]="colorPalette"
+                  [hideTextInput]="true"
+                  [hideColorPicker]="true"
+                  [(ngModel)]="profile.color"
+                  (input)="updateProfile(profile, 'true')"
+                  style="margin-right: 10px; line-height: 33px"
+                  >Pick a Color</span
                 >
                 <ngx-colors
                   ngx-colors-trigger
                   [hideTextInput]="true"
-                  [hideColorPicker]="false"
+                  [hideColorPicker]="true"
                   [(ngModel)]="profile.color"
                   (input)="updateProfile(profile, 'true')"
                   [palette]="colorPalette"
@@ -108,7 +135,7 @@
               defaultBgColor="#F5F5F5"
               [(ngModel)]="calendar.selected"
               (click)="updateCalendar(calendar)"
-              switchColor="{{ calendar.color }}"
+              style="--color:{{ calendar.color }}"
             >
             </ui-switch>
           </td>
@@ -117,7 +144,7 @@
               (keyup)="changeValue('name', $event)"
               (blur)="renameCalendar(calendar, 'name', $event)"
               contenteditable="true"
-            >{{ calendar.name }}</span
+              >{{ calendar.name }}</span
             >
           </td>
           <td style="width: 20%">
@@ -126,7 +153,7 @@
               style="float: right; vertical-align: bottom"
               class="material-icons md-18 delete-icon"
               (click)="deleteCalendar(calendar)"
-            >close</mat-icon
+              >close</mat-icon
             >
           </td>
           <td style="width: 10%">
@@ -140,13 +167,18 @@
             >
             <mat-menu #menu="matMenu">
               <div mat-menu-item style="display: flex">
-                <span style="margin-right: 10px; line-height: 33px"
-                >Pick a Color</span
+                <span ngx-colors-trigger
+                [hideTextInput]="true"
+                [hideColorPicker]="true"
+                [(ngModel)]="calendar.color"
+                (input)="updateCalendar(calendar, 'true')"
+                style="margin-right: 10px; line-height: 33px"
+                  >Pick a Color</span
                 >
                 <ngx-colors
                   ngx-colors-trigger
                   [hideTextInput]="true"
-                  [hideColorPicker]="false"
+                  [hideColorPicker]="true"
                   [(ngModel)]="calendar.color"
                   (input)="updateCalendar(calendar, 'true')"
                 >

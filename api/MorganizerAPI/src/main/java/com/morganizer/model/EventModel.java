@@ -12,13 +12,14 @@ public class EventModel {
 	private String description;
 	private String type;
 	private String location;
+	private String eventStopwatch;
 	List<String> participantList;
 	
 	
 		
 	
 	public EventModel(String name, String startDate, String endDate, String startTime, String endTime,
-			String description, String type, String location, List<String> participantList) {
+			String description, String type, String location, List<String> participantList, String eventStopwatch) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
@@ -29,6 +30,7 @@ public class EventModel {
 		this.type = type;
 		this.location = location;
 		this.participantList = participantList;
+		this.eventStopwatch = eventStopwatch;
 	}
 	public String getName() {
 		return name;
@@ -84,7 +86,12 @@ public class EventModel {
 	public void setParticipantList(List<String> participantList) {
 		this.participantList = participantList;
 	}
-	
+	public void setEventStopwatch(String timeValue) {
+		this.eventStopwatch = timeValue;
+	}
+	public String getEventStopwatch() {
+		return eventStopwatch;
+	}
 	
 	
 	
