@@ -18,8 +18,7 @@
       style="box-shadow: none"
     >
       <mat-expansion-panel-header>
-        <mat-panel-title><strong>Event Timer</strong></mat-panel-title
-        >
+        <mat-panel-title><strong>Event Timer</strong></mat-panel-title>
       </mat-expansion-panel-header>
       <div class="event-timer">
         <div class="event-title">
@@ -82,13 +81,20 @@
             >
             <mat-menu #profileMenu="matMenu">
               <div mat-menu-item style="display: flex">
-                <span style="margin-right: 10px; line-height: 33px"
+                <span
+                  ngx-colors-trigger
+                  [palette]="colorPalette"
+                  [hideTextInput]="true"
+                  [hideColorPicker]="true"
+                  [(ngModel)]="profile.color"
+                  (input)="updateProfile(profile, 'true')"
+                  style="margin-right: 10px; line-height: 33px"
                   >Pick a Color</span
                 >
                 <ngx-colors
                   ngx-colors-trigger
                   [hideTextInput]="true"
-                  [hideColorPicker]="false"
+                  [hideColorPicker]="true"
                   [(ngModel)]="profile.color"
                   (input)="updateProfile(profile, 'true')"
                   [palette]="colorPalette"
@@ -161,7 +167,12 @@
             >
             <mat-menu #menu="matMenu">
               <div mat-menu-item style="display: flex">
-                <span style="margin-right: 10px; line-height: 33px"
+                <span ngx-colors-trigger
+                [hideTextInput]="true"
+                [hideColorPicker]="true"
+                [(ngModel)]="calendar.color"
+                (input)="updateCalendar(calendar, 'true')"
+                style="margin-right: 10px; line-height: 33px"
                   >Pick a Color</span
                 >
                 <ngx-colors

@@ -80,6 +80,10 @@
             [for]="picker1"
           ></mat-datepicker-toggle>
           <ngx-mat-datetime-picker #picker1 [hideTime]="true">
+            <ng-template>
+              <!-- <mat-icon>star</mat-icon> -->
+              <span>OK</span>
+            </ng-template>
           </ngx-mat-datetime-picker>
         </mat-form-field>
       </div>
@@ -128,7 +132,7 @@
             #picker2
             [enableMeridian]="enableMeridian"
             [stepMinute]="15"
-            [defaultTime]="defaultTime"
+            [defaultTime]="defaultEndTime"
           >
             <!-- Custom icon or text of Apply icon -->
             <ng-template>

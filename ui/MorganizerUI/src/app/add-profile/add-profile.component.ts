@@ -27,24 +27,34 @@ export class AddProfileComponent implements OnInit {
   editFlag: boolean = false;
   color: any = '#673ab7';
   colorPalette: Array<string> = [
+    '#e15351',
+    '#e76f51',
+    '#e7739a',
+    '#f5ae62',
+    '#89af6e',
     '#f44336',
     '#e91e63',
     '#9c27b0',
     '#673ab7',
     '#3f51b5',
     '#2196f3',
-    //     '#03a9f4',
-    //     '#00bcd4',
     '#009688',
     '#4caf50',
-    //     '#8bc34a',
-    //     '#cddc39',
     '#ffeb3b',
     '#ffc107',
     '#ff9800',
     '#ff5722',
     '#795548',
-    '#607d8b',
+    '#607d8b'
+  ];
+
+  reminderList = [
+    { title: '5 minutes', value: '5', id: 1 },
+    { title: '10 minutes', value: '10', id: 2 },
+    { title: '15 minutes', value: '15', id: 3 },
+    { title: '30 minutes', value: '30', id: 4 },
+    { title: '1 hour', value: '60', id: 5 },
+    { title: '2 hours', value: '120', id: 6 },
   ];
 
   constructor(

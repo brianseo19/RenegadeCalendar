@@ -1,0 +1,9 @@
+KNOWN BUGS
+1. events outside the time window for week view dont render correctly (weird time, all day events, or multi day events)
+2. when choosing custom color for profile or calendar, the color updates the calendar constantly (disabled for now)
+3. profile editing dialog on header bar does not work properly
+4. special events (weird time, all day events, or multi day events) may render incorrectly on day view
+5. date on the header bar overflows on day view
+6. the event hover popover may be cut off on the left hand side of calendar
+7. the color picker for calendars may be cut off on the bottom
+8. database is not initialized with password reset questions and notification reminderList (CreateEventComponent)
