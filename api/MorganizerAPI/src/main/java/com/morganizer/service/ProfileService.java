@@ -47,11 +47,10 @@ public class ProfileService {
 	public List<ProfileResponse> fetchAll(Long userId) {
 		
 		List<ProfileEntity> profileList =  profileRepository.findByUserId(userId);
-		List<Long> reminderList = new ArrayList<>();
 		List<ProfileResponse> result = new ArrayList<>();
 
 		for(ProfileEntity profile: profileList) {
-			reminderList.clear();
+			List<Long> reminderList = new ArrayList<>();
 			for (EventReminderEntity reminder: profile.getReminderList()) {
 				reminderList.add(reminder.getReminderId());
 			}
@@ -77,7 +76,12 @@ public class ProfileService {
 		}
 		
 		ProfileEntity profileEntity = profileRepository.save(profile);
-		return new ProfileResponse(profileEntity.getName(),profileEntity.getGender(),profileEntity.getPhoneNumber(), profileEntity.getBirthdate(), profileEntity.getEmail(), profileEntity.getProfileId(), profileEntity.getUser().getId(), profileEntity.getColor(),profileEntity.isSelected(), profileRequest.getReminderList());
+
+		List<Long> reminders = new ArrayList<>();
+		for (EventReminderEntity reminder: profileEntity.getReminderList()) {
+			reminders.add(reminder.getReminderId());
+		}
+		return new ProfileResponse(profileEntity.getName(),profileEntity.getGender(),profileEntity.getPhoneNumber(), profileEntity.getBirthdate(), profileEntity.getEmail(), profileEntity.getProfileId(), profileEntity.getUser().getId(), profileEntity.getColor(),profileEntity.isSelected(), reminders);
 
 	}
 }

@@ -15,8 +15,6 @@ public class ProfileResponse {
 	private List<Long> reminderList;
 	
 	
-	
-	
 	public ProfileResponse() {
 		
 	}
